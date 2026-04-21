@@ -42,19 +42,19 @@ const DIAGRAM_VIEWS = {
   },
   overview: {
     title: "Mermaid overview",
-    summary: "A compact Mermaid topology centered on the active seeds and strongest nearby connections.",
+    summary: "A compact Mermaid topology centered on active seeds. Mermaid nodes are auto-laid out (pan/zoom/click supported).",
   },
   relationships: {
     title: "Mermaid relationship map",
-    summary: "Grouped relationship lanes show how the current selection connects across the neighborhood.",
+    summary: "Grouped relationship lanes show neighborhood links in Mermaid's fixed layout (pan/zoom/click supported).",
   },
   paths: {
     title: "Mermaid path flow",
-    summary: "A compact path view traces the selected node from the active seed and highlights key branches.",
+    summary: "A compact path view traces selected branches in Mermaid's fixed layout (pan/zoom/click supported).",
   },
   sources: {
     title: "Mermaid provenance trace",
-    summary: "A provenance-first Mermaid trace links the current selection to source pages, evidence, and chunks.",
+    summary: "A provenance-first Mermaid trace links source pages, evidence, and chunks in Mermaid's fixed layout.",
   },
 };
 const GUIDED_STEPS = {
@@ -235,7 +235,7 @@ function defaultDockLayout() {
       content: [
         {
           type: "stack",
-          size: "22%",
+          size: "18%",
           isClosable: false,
           content: [
             {
@@ -258,13 +258,13 @@ function defaultDockLayout() {
           type: "component",
           title: "Graph canvas",
           componentType: "dom-panel",
-          size: "56%",
+          size: "64%",
           isClosable: false,
           componentState: { panelId: "panel-canvas" },
         },
         {
           type: "stack",
-          size: "22%",
+          size: "18%",
           isClosable: false,
           content: [
             {
