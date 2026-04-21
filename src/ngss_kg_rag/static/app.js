@@ -6,6 +6,7 @@ const APP_SCRIPT = document.currentScript || document.querySelector('script[src$
 const APP_SCRIPT_URL = new URL(APP_SCRIPT?.src || window.location.href, window.location.href);
 const APP_ASSET_BASE_URL = new URL(".", APP_SCRIPT_URL);
 const API_BASE_URL = String(RUNTIME_CONFIG.apiBaseUrl || "").replace(/\/+$/, "");
+const PAGES_DATA_URL = RUNTIME_CONFIG.pagesDataUrl ? new URL(RUNTIME_CONFIG.pagesDataUrl, APP_ASSET_BASE_URL).toString() : "";
 const CATALOG_CATEGORY_LABELS = {
   all: "All items",
   performance_expectation: "Performance expectations",
@@ -198,6 +199,9 @@ const state = {
   mermaidPan: null,
   layoutManager: null,
   goldenLayoutCtor: null,
+  pagesData: null,
+  pagesDataPromise: null,
+  localGraphIndex: null,
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -211,6 +215,190 @@ function logDebug(scope, message, payload) {
   console.groupCollapsed(`${prefix} ${message}`);
   console.log(payload);
   console.groupEnd();
+}
+
+function isPagesDataMode() {
+  return Boolean(PAGES_DATA_URL && !API_BASE_URL);
+}
+
+async function ensurePagesData() {
+  if (state.pagesData) return state.pagesData;
+  if (!PAGES_DATA_URL) throw new Error("No local Pages dataset is configured.");
+  if (!state.pagesDataPromise) {
+    state.pagesDataPromise = fetch(PAGES_DATA_URL)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to load Pages dataset (${response.status})`);
+        return response.json();
+      })
+      .then((data) => {
+        const nodes = data?.graph?.nodes || [];
+        const chunks = data?.graph?.chunks || [];
+        const edges = data?.graph?.edges || [];
+        const nodesById = new Map(nodes.map((node) => [node.node_id, node]));
+        const publicIdToNodeId = new Map();
+        nodes.forEach((node) => {
+          const publicId = node?.payload?.public_id;
+          if (publicId && !publicIdToNodeId.has(publicId)) publicIdToNodeId.set(publicId, node.node_id);
+        });
+        const chunksByNodeId = new Map();
+        chunks.forEach((chunk) => {
+          const items = chunksByNodeId.get(chunk.node_id) || [];
+          items.push(chunk);
+          chunksByNodeId.set(chunk.node_id, items);
+        });
+        const neighborsByNodeId = new Map();
+        edges.forEach((edge) => {
+          if (!neighborsByNodeId.has(edge.source_id)) neighborsByNodeId.set(edge.source_id, new Set());
+          if (!neighborsByNodeId.has(edge.target_id)) neighborsByNodeId.set(edge.target_id, new Set());
+          neighborsByNodeId.get(edge.source_id).add(edge.target_id);
+          neighborsByNodeId.get(edge.target_id).add(edge.source_id);
+        });
+        state.pagesData = data;
+        state.localGraphIndex = {
+          nodesById,
+          publicIdToNodeId,
+          chunksByNodeId,
+          neighborsByNodeId,
+          edges,
+        };
+        logDebug("pages-data", "loaded", {
+          url: PAGES_DATA_URL,
+          nodes: nodes.length,
+          edges: edges.length,
+          chunks: chunks.length,
+          catalog: (data.catalog || []).length,
+        });
+        return data;
+      });
+  }
+  return state.pagesDataPromise;
+}
+
+function localNodeByIdentifier(identifier) {
+  if (!state.localGraphIndex) return null;
+  const nodeId = state.localGraphIndex.publicIdToNodeId.get(identifier) || identifier;
+  return state.localGraphIndex.nodesById.get(nodeId) || null;
+}
+
+function localNeighborhood(nodeId, maxHops = 1) {
+  const index = state.localGraphIndex;
+  if (!index?.nodesById.has(nodeId)) return { seed: nodeId, nodes: [], edges: [] };
+  const visited = new Set([nodeId]);
+  const parent = new Map([[nodeId, null]]);
+  const distance = new Map([[nodeId, 0]]);
+  const queue = [nodeId];
+  while (queue.length) {
+    const current = queue.shift();
+    if ((distance.get(current) || 0) >= maxHops) continue;
+    for (const neighbor of index.neighborsByNodeId.get(current) || []) {
+      if (visited.has(neighbor)) continue;
+      visited.add(neighbor);
+      parent.set(neighbor, current);
+      distance.set(neighbor, (distance.get(current) || 0) + 1);
+      queue.push(neighbor);
+    }
+  }
+  const nodes = [...visited].map((id) => {
+    const node = { ...index.nodesById.get(id) };
+    const path = [];
+    let current = id;
+    while (current !== null) {
+      path.push(current);
+      current = parent.get(current) ?? null;
+    }
+    node.distance = distance.get(id) || 0;
+    node.path_from_seed = path.reverse();
+    return node;
+  });
+  const edges = index.edges.filter((edge) => visited.has(edge.source_id) && visited.has(edge.target_id));
+  return {
+    seed: nodeId,
+    nodes: nodes.sort((left, right) => (left.distance - right.distance) || String(left.node_id).localeCompare(String(right.node_id))),
+    edges,
+  };
+}
+
+function localSearchCatalog(query, limit = 10) {
+  const needle = String(query || "").trim().toLowerCase();
+  if (!needle) return [];
+  return (state.pagesData?.catalog || [])
+    .map((item) => {
+      const haystack = [item.public_id, item.title, item.description, item.family, item.topic_title, item.grade_label]
+        .filter(Boolean)
+        .join(" \n ")
+        .toLowerCase();
+      let score = 0;
+      if (String(item.public_id || "").toLowerCase() === needle) score += 200;
+      if (String(item.public_id || "").toLowerCase().includes(needle)) score += 120;
+      if (String(item.title || "").toLowerCase().includes(needle)) score += 80;
+      if (haystack.includes(needle)) score += 40;
+      return { item, score };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((left, right) => right.score - left.score || String(left.item.public_id).localeCompare(String(right.item.public_id)))
+    .slice(0, limit)
+    .map(({ item, score }) => ({
+      ...localNodeByIdentifier(item.public_id),
+      score,
+      reasons: ["Matched the local Pages dataset."],
+      chunk_ids: (state.localGraphIndex?.chunksByNodeId.get(localNodeByIdentifier(item.public_id)?.node_id) || []).map((chunk) => chunk.chunk_id),
+    }));
+}
+
+async function localApi(path, options = {}) {
+  await ensurePagesData();
+  const url = new URL(path, "https://local.invalid");
+  const pathname = url.pathname;
+  const method = (options.method || "GET").toUpperCase();
+  if (pathname === "/health") {
+    const counts = state.pagesData?.manifest?.counts || {};
+    return { status: "static", stats: counts };
+  }
+  if (pathname === "/catalog/nodes") {
+    return { items: state.pagesData?.catalog || [] };
+  }
+  if ((pathname.startsWith("/standards/") || pathname.startsWith("/topics/")) && method === "GET") {
+    const identifier = decodeURIComponent(pathname.split("/").pop() || "");
+    const node = localNodeByIdentifier(identifier);
+    if (!node) throw new Error(`Not found: ${identifier}`);
+    return {
+      node,
+      neighbors: localNeighborhood(node.node_id, 1).nodes,
+      chunks: state.localGraphIndex?.chunksByNodeId.get(node.node_id) || [],
+    };
+  }
+  if (pathname.startsWith("/graph/neighbors/") && method === "GET") {
+    const identifier = decodeURIComponent(pathname.split("/").pop() || "");
+    const node = localNodeByIdentifier(identifier);
+    if (!node) throw new Error(`Not found: ${identifier}`);
+    return localNeighborhood(node.node_id, clampNumber(url.searchParams.get("max_hops"), 1, 1, 3));
+  }
+  if (pathname === "/search" && method === "POST") {
+    const payload = JSON.parse(options.body || "{}");
+    return { query: payload.query || "", results: localSearchCatalog(payload.query, payload.limit || 10) };
+  }
+  if (pathname === "/answer" && method === "POST") {
+    const payload = JSON.parse(options.body || "{}");
+    const results = localSearchCatalog(payload.query, payload.limit || 5);
+    const primary = results[0];
+    const citations = primary ? [publicIdFor(primary)] : [];
+    const chunks = primary ? state.localGraphIndex?.chunksByNodeId.get(primary.node_id) || [] : [];
+    const support = chunks[0]?.text || primary?.description || "The Pages build is using a local static dataset, so this answer is a lightweight summary instead of a server-generated RAG response.";
+    return {
+      query: payload.query || "",
+      answer: primary
+        ? `${publicIdFor(primary)}: ${support}`
+        : "No local answer could be generated from the Pages dataset for that prompt.",
+      citations,
+      retrieved_nodes: results,
+      traversal_edges: [],
+      provider: "pages-static",
+    };
+  }
+  if (pathname === "/ingest/rebuild" && method === "POST") {
+    throw new Error("Rebuild is unavailable on the static GitHub Pages deployment.");
+  }
+  throw new Error(`Unsupported Pages request: ${pathname}`);
 }
 
 async function loadGoldenLayoutCtor() {
@@ -404,6 +592,16 @@ async function initDockLayout(layoutConfig = null) {
 }
 
 async function api(path, options = {}) {
+  if (isPagesDataMode()) {
+    try {
+      const data = await localApi(path, options);
+      logDebug("api", "local response", { path, keys: Object.keys(data || {}), data });
+      return data;
+    } catch (error) {
+      logDebug("api", "local error", { path, detail: error.message });
+      throw error;
+    }
+  }
   const url = resolveApiUrl(path);
   logDebug("api", "request", {
     path: url,
@@ -2809,6 +3007,19 @@ function wireForms() {
   });
 }
 
+function configureRuntimeUi() {
+  if (!isPagesDataMode()) return;
+  const rebuildButton = $("#rebuild-index");
+  if (rebuildButton) {
+    rebuildButton.disabled = true;
+    rebuildButton.title = "Rebuild is only available when the FastAPI backend is running.";
+  }
+  const status = $("#workspace-status");
+  if (status) {
+    status.textContent = "Static Pages mode is active. Browsing, graph exploration, and lightweight local search work from the bundled dataset.";
+  }
+}
+
 function wireKeyboardShortcuts() {
   document.addEventListener("keydown", (event) => {
     const tag = document.activeElement?.tagName?.toLowerCase();
@@ -2920,6 +3131,7 @@ function wireDelegatedActions() {
 }
 
 async function bootstrap() {
+  configureRuntimeUi();
   wireForms();
   wireDelegatedActions();
   wireGraphControls();

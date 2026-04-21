@@ -46,7 +46,7 @@ This repo includes `.github/workflows/pages.yml`, which publishes the static fro
 
 - The workflow builds a Pages bundle with `python scripts/build_pages.py`.
 - The deployed site can target a separate API by setting the repository variable `NGSS_API_BASE_URL`.
-- If `NGSS_API_BASE_URL` is blank, the frontend uses same-origin API requests.
+- If `NGSS_API_BASE_URL` is blank, the Pages site falls back to a bundled local graph dataset for browsing, graph exploration, and lightweight local search.
 
 ## CLI examples
 

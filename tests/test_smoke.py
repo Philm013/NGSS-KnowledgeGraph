@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import tempfile
 import unittest
 from dataclasses import replace
@@ -85,6 +86,7 @@ class SmokeTestCase(unittest.TestCase):
         self.assertTrue((static_dir / "index.html").exists())
         self.assertTrue((static_dir / "app.css").exists())
         self.assertTrue((static_dir / "app.js").exists())
+        self.assertTrue((static_dir / "vendor" / "golden-layout" / "dist" / "esm" / "index.js").exists())
         index_text = (static_dir / "index.html").read_text(encoding="utf-8")
         self.assertIn("Explore standards on a full canvas workspace", index_text)
         self.assertIn("Guided unpacking", index_text)
@@ -138,6 +140,9 @@ class SmokeTestCase(unittest.TestCase):
         self.assertIn("normalizeDockLayoutConfig", app_text)
         self.assertIn("resolveApiUrl", app_text)
         self.assertIn("NGSS_CONFIG", app_text)
+        self.assertIn("pagesDataUrl", app_text)
+        self.assertIn("ensurePagesData", app_text)
+        self.assertIn("localApi", app_text)
         self.assertIn("renderSelectionSpotlight", app_text)
         self.assertIn("buildOverviewDiagram", app_text)
         self.assertIn("mermaidNodeClick", app_text)
@@ -156,6 +161,28 @@ class SmokeTestCase(unittest.TestCase):
         pages_workflow = (Path(__file__).resolve().parents[1] / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
         self.assertIn("actions/deploy-pages@v4", pages_workflow)
         self.assertIn("scripts/build_pages.py", pages_workflow)
+
+    def test_pages_build_outputs_static_bundle(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        output_dir = Path(self.tempdir.name) / "pages-build"
+        subprocess.run(
+            [
+                "python",
+                str(root / "scripts" / "build_pages.py"),
+                "--output-dir",
+                str(output_dir),
+                "--api-base-url",
+                "https://example.com/api",
+            ],
+            check=True,
+            cwd=root,
+        )
+        self.assertTrue((output_dir / "index.html").exists())
+        self.assertTrue((output_dir / "pages-data.json").exists())
+        self.assertTrue((output_dir / "vendor" / "golden-layout" / "dist" / "esm" / "index.js").exists())
+        site_config = (output_dir / "site-config.js").read_text(encoding="utf-8")
+        self.assertIn("pagesDataUrl", site_config)
+        self.assertIn("https://example.com/api", site_config)
 
     def test_canonical_supplements_capture_normalized_records(self) -> None:
         supplements = json.loads(self.settings.canonical_supplements_path.read_text(encoding="utf-8"))
