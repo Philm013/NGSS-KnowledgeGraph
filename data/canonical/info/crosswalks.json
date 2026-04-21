@@ -20,7 +20,7 @@
       "name": "ngss-canonical-graph",
       "version": 1
     },
-    "source_dir": "/home/runner/work/NGSS-KnowledgeGraph/NGSS-KnowledgeGraph/JSON",
+    "source_dir": "/storage/emulated/0/Documents/GitHub/NGSS-knowledgeGraph/JSON",
     "source_files": [
       "ngss3DElements.json",
       "ngss68.json",
