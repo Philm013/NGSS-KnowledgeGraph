@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ngss-kg-rag"
+version = "0.1.0"
+description = "Knowledge graph powered RAG explorer for the NGSS standards"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "networkx>=3.4,<4.0",
+  "pydantic>=2.8,<3.0",
+  "uvicorn>=0.30,<1.0",
+]
+
+[project.scripts]
+ngss-rag = "ngss_kg_rag.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ngss_kg_rag = ["static/*"]

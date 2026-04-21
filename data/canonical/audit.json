@@ -1,0 +1,638 @@
+{
+  "findings": {
+    "crosswalk_text_variants": [
+      {
+        "family": "ELA",
+        "public_id": "RI.1.1",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.2.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.2.3",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.3.1",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.3.2",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.3.3",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.4.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.4.9",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.5.1",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.5.7",
+        "text_variants": 7
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.5.9",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "RI.K.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.11-12.1",
+        "text_variants": 8
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.11-12.7",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.11-12.8",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.11-12.9",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.6-8.1",
+        "text_variants": 8
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.6-8.3",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.6-8.7",
+        "text_variants": 6
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.6-8.9",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "RST.9-10.8",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.11-12.5",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.2.5",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.3.4",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.4.5",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.5.5",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.8.5",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "SL.K.3",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.1.7",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.1.8",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.2.6",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.2.7",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.2.8",
+        "text_variants": 6
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.3.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.3.2",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.3.7",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.3.8",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.4.7",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.4.8",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.4.9",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.5.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.5.7",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.5.8",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.5.9",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.K.2",
+        "text_variants": 2
+      },
+      {
+        "family": "ELA",
+        "public_id": "W.K.7",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.11-12.8",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.6-8.1",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.6-8.2",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.6-8.7",
+        "text_variants": 5
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.6-8.8",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.6-8.9",
+        "text_variants": 3
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.9-12.2",
+        "text_variants": 6
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.9-12.5",
+        "text_variants": 4
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.9-12.7",
+        "text_variants": 6
+      },
+      {
+        "family": "ELA",
+        "public_id": "WHST.9-12.9",
+        "text_variants": 5
+      },
+      {
+        "family": "MATH",
+        "public_id": "1.MD.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "2.MD.D.10",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "3.MD.A.2",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "3.MD.B.3",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "3.MD.B.4",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "3.NBT",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "4.MD.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "5.G.A.2",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "5.MD.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "6.EE.B.6",
+        "text_variants": 3
+      },
+      {
+        "family": "MATH",
+        "public_id": "6.NS.C.5",
+        "text_variants": 3
+      },
+      {
+        "family": "MATH",
+        "public_id": "6.RP.A.1",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "6.RP.A.3",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "6.SP.B.5",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "7.EE.B.4",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "7.RP.A.2",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "8.F.A.3",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSA-SSE.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSA-SSE.B.3",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSF-IF.C.7",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSN-Q.A.1",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSN-Q.A.2",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSN-Q.A.3",
+        "text_variants": 4
+      },
+      {
+        "family": "MATH",
+        "public_id": "HSS-ID.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "K.MD.A.1",
+        "text_variants": 2
+      },
+      {
+        "family": "MATH",
+        "public_id": "K.MD.A.2",
+        "text_variants": 3
+      },
+      {
+        "family": "MATH",
+        "public_id": "MP.2",
+        "text_variants": 42
+      },
+      {
+        "family": "MATH",
+        "public_id": "MP.4",
+        "text_variants": 37
+      },
+      {
+        "family": "MATH",
+        "public_id": "MP.5",
+        "text_variants": 14
+      }
+    ],
+    "low_confidence_dimension_mappings": [
+      {
+        "confidence": 0.5,
+        "family_hint": "CCC",
+        "mapping_method": "fallback",
+        "pe_id": "2-PS1-3",
+        "raw_id": "Energy and Matter",
+        "raw_texts": [
+          "Objects may break into smaller pieces and be put together into larger pieces, or change shapes."
+        ],
+        "resolved_family": "CCC",
+        "source_file": "ngssK5.json",
+        "source_pages": [
+          16
+        ],
+        "target_family": "CCC",
+        "target_public_id": "ENERGY-AND-MATTER"
+      },
+      {
+        "confidence": 0.5,
+        "family_hint": "SEP",
+        "mapping_method": "fallback",
+        "pe_id": "K-ESS2-1",
+        "raw_id": "Connections to the Nature of Science",
+        "raw_texts": [
+          "Science Knowledge is Based on Empirical Evidence",
+          "Scientists look for patterns and order when making observations about the world."
+        ],
+        "resolved_family": "SEP",
+        "source_file": "ngssK5.json",
+        "source_pages": [
+          8
+        ],
+        "target_family": "SEP",
+        "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      },
+      {
+        "confidence": 0.5,
+        "family_hint": "CCC",
+        "mapping_method": "fallback",
+        "pe_id": "K-PS2-1",
+        "raw_id": "Cause and Effect",
+        "raw_texts": [
+          "Simple tests can be designed to gather evidence to support or refute student ideas about causes."
+        ],
+        "resolved_family": "CCC",
+        "source_file": "ngssK5.json",
+        "source_pages": [
+          5
+        ],
+        "target_family": "CCC",
+        "target_public_id": "CAUSE-AND-EFFECT"
+      },
+      {
+        "confidence": 0.5,
+        "family_hint": "CCC",
+        "mapping_method": "fallback",
+        "pe_id": "MS-PS1-3",
+        "raw_id": "Connections to Engineering, Technology, and Applications of Science",
+        "raw_texts": [
+          "Influence of Science, Engineering and Technology on Society and the Natural World",
+          "The uses of technologies and any limitation on their use are driven by individual or societal needs, desires, and values; by the findings of scientific research; and by differences in such factors as climate, natural resources, and economic conditions. Thus technology use varies from region to region and over time."
+        ],
+        "resolved_family": "CCC",
+        "source_file": "ngss68.json",
+        "source_pages": [
+          49
+        ],
+        "target_family": "CCC",
+        "target_public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE"
+      }
+    ],
+    "synthetic_nodes": [
+      {
+        "family": "CCC",
+        "node_id": "concept:CCC:CAUSE-AND-EFFECT",
+        "public_id": "CAUSE-AND-EFFECT",
+        "source_file": null,
+        "title": "Cause and Effect"
+      },
+      {
+        "family": "SEP",
+        "node_id": "concept:SEP:CONNECTIONS-TO-THE-NATURE-OF-SCIENCE",
+        "public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE",
+        "source_file": null,
+        "title": "Connections to the Nature of Science"
+      },
+      {
+        "family": "CCC",
+        "node_id": "concept:CCC:ENERGY-AND-MATTER",
+        "public_id": "ENERGY-AND-MATTER",
+        "source_file": null,
+        "title": "Energy and Matter"
+      },
+      {
+        "family": "CCC",
+        "node_id": "concept:CCC:CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE",
+        "public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE",
+        "source_file": null,
+        "title": "Connections to Engineering, Technology, and Applications of Science"
+      }
+    ]
+  },
+  "manifest": {
+    "counts": {
+      "aliases": 1876,
+      "chunks": 339,
+      "concepts": 70,
+      "edges": 6214,
+      "grades": 10,
+      "nodes": 4448,
+      "performance_expectations": 208,
+      "source_files": [
+        "ngss3DElements.json",
+        "ngss68.json",
+        "ngss912.json",
+        "ngssK5.json"
+      ],
+      "topics": 61
+    },
+    "schema": {
+      "name": "ngss-canonical-graph",
+      "version": 1
+    },
+    "source_dir": "/storage/emulated/0/Documents/GitHub/NGSS-knowledgeGraph/JSON",
+    "source_files": [
+      "ngss3DElements.json",
+      "ngss68.json",
+      "ngss912.json",
+      "ngssK5.json"
+    ]
+  },
+  "schema": {
+    "name": "ngss-canonical-graph",
+    "version": 1
+  },
+  "summary": {
+    "alias_mapping_methods": [
+      "crosswalk-id",
+      "crosswalk-text",
+      "dci-code",
+      "dci-code-text",
+      "fallback",
+      "fallback-text",
+      "grade-label",
+      "grade-topic-id-title",
+      "grade-topic-title",
+      "inventory-code",
+      "inventory-name",
+      "inventory-title",
+      "normalized-id",
+      "normalized-id-text",
+      "normalized-text",
+      "normalized-text-text",
+      "pe-id",
+      "raw-grade-id",
+      "topic-connection-target",
+      "topic-id",
+      "topic-title"
+    ],
+    "crosswalk_variants": 85,
+    "low_confidence_mappings": 4,
+    "synthetic_nodes": 4,
+    "validation_errors": 0,
+    "validation_warnings": 1
+  },
+  "validations": [
+    {
+      "code": "node-count",
+      "detail": "4448 canonical nodes exported",
+      "status": "ok"
+    },
+    {
+      "code": "edge-count",
+      "detail": "6214 canonical edges exported",
+      "status": "ok"
+    },
+    {
+      "code": "chunk-count",
+      "detail": "339 canonical chunks exported",
+      "status": "ok"
+    },
+    {
+      "code": "unique-node-ids",
+      "detail": "Node IDs are unique",
+      "status": "ok"
+    },
+    {
+      "code": "unique-edge-ids",
+      "detail": "Edge IDs are unique",
+      "status": "ok"
+    },
+    {
+      "code": "source-provenance",
+      "detail": "Canonical nodes retain source_file provenance where expected",
+      "status": "warning"
+    },
+    {
+      "code": "normalized-topic-connections",
+      "detail": "348 structured topic connection records exported",
+      "status": "ok"
+    },
+    {
+      "code": "crosswalk-deduplication",
+      "detail": "150 canonical crosswalk records exported",
+      "status": "ok"
+    }
+  ]
+}

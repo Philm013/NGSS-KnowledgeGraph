@@ -1,0 +1,38 @@
+[
+  {
+    "query": "K-PS2-1",
+    "expected_node_ids": ["pe:K-PS2-1"],
+    "expected_citations": ["K-PS2-1"],
+    "expand_hops": 1
+  },
+  {
+    "query": "MS-PS1 Matter and its Interactions",
+    "expected_node_ids": ["topic:MS-PS1"],
+    "expected_citations": ["MS-PS1"],
+    "expand_hops": 1
+  },
+  {
+    "query": "Patterns crosscutting concept",
+    "expected_node_ids": ["concept:CCC:PAT"],
+    "expected_citations": ["PAT"],
+    "expand_hops": 1
+  },
+  {
+    "query": "Engineering design ETS1.A",
+    "expected_node_ids": ["concept:DCI:ETS1.A"],
+    "expected_citations": ["ETS1.A"],
+    "expand_hops": 1
+  },
+  {
+    "query": "high school matter and its interactions",
+    "expected_node_ids": ["topic:HS-PS1"],
+    "expected_citations": ["HS-PS1"],
+    "expand_hops": 1
+  },
+  {
+    "query": "How does the NGSS connect to math practice MP.2?",
+    "expected_node_ids": ["crosswalk:MATH:MP.2"],
+    "expected_citations": ["MP.2"],
+    "expand_hops": 1
+  }
+]

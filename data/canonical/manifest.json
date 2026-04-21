@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "aliases": 1876,
+    "chunks": 339,
+    "concepts": 70,
+    "edges": 6214,
+    "grades": 10,
+    "nodes": 4448,
+    "performance_expectations": 208,
+    "source_files": [
+      "ngss3DElements.json",
+      "ngss68.json",
+      "ngss912.json",
+      "ngssK5.json"
+    ],
+    "topics": 61
+  },
+  "schema": {
+    "name": "ngss-canonical-graph",
+    "version": 1
+  },
+  "source_dir": "/storage/emulated/0/Documents/GitHub/NGSS-knowledgeGraph/JSON",
+  "source_files": [
+    "ngss3DElements.json",
+    "ngss68.json",
+    "ngss912.json",
+    "ngssK5.json"
+  ]
+}

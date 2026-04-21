@@ -1,0 +1,64 @@
+{
+  "files": {
+    "concepts.json": {
+      "record_count": 70,
+      "record_type": "dimension_concept"
+    },
+    "crosswalks.json": {
+      "record_count": 150,
+      "record_type": "crosswalk_standard"
+    },
+    "grades.json": {
+      "record_count": 10,
+      "record_type": "grade_band"
+    },
+    "performance_expectations.json": {
+      "record_count": 208,
+      "record_type": "performance_expectation"
+    },
+    "topics.json": {
+      "record_count": 61,
+      "record_type": "topic"
+    }
+  },
+  "manifest": {
+    "counts": {
+      "aliases": 1876,
+      "chunks": 339,
+      "concepts": 70,
+      "edges": 6214,
+      "grades": 10,
+      "nodes": 4448,
+      "performance_expectations": 208,
+      "source_files": [
+        "ngss3DElements.json",
+        "ngss68.json",
+        "ngss912.json",
+        "ngssK5.json"
+      ],
+      "topics": 61
+    },
+    "schema": {
+      "name": "ngss-canonical-graph",
+      "version": 1
+    },
+    "source_dir": "/storage/emulated/0/Documents/GitHub/NGSS-knowledgeGraph/JSON",
+    "source_files": [
+      "ngss3DElements.json",
+      "ngss68.json",
+      "ngss912.json",
+      "ngssK5.json"
+    ]
+  },
+  "schema": {
+    "name": "ngss-canonical-graph",
+    "version": 1
+  },
+  "summary": {
+    "concept_records": 70,
+    "crosswalk_records": 150,
+    "grade_records": 10,
+    "performance_expectation_records": 208,
+    "topic_records": 61
+  }
+}

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>NGSS Knowledge Graph RAG</title>
+    <link rel="stylesheet" href="/static/vendor/golden-layout/dist/css/goldenlayout-base.css" />
+    <link rel="stylesheet" href="/static/vendor/golden-layout/dist/css/themes/goldenlayout-light-theme.css" />
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <div class="app-shell canvas-app-shell">
+      <header class="topbar">
+        <div class="hero-copy">
+          <p class="eyebrow">NGSS knowledge graph</p>
+          <h1>Explore standards on a full canvas workspace</h1>
+          <p class="subcopy">
+            The graph and Mermaid maps own the canvas. Seeds, inspector details, evidence, and ask tools live in movable dockable panels around it.
+          </p>
+          <div class="hero-pills" aria-label="Workspace highlights">
+            <span class="hero-pill">Canvas-first graph and Mermaid views</span>
+            <span class="hero-pill">Dockable panels for seeds, evidence, and ask tools</span>
+            <span class="hero-pill">Source-backed NGSS exploration</span>
+          </div>
+        </div>
+        <div class="topbar-side">
+          <div class="mode-toggle" role="tablist" aria-label="View mode">
+            <button id="mode-explorer" class="mode-button active" data-view-mode="explorer" type="button">Explorer</button>
+            <button id="mode-evidence" class="mode-button" data-view-mode="evidence" type="button">Evidence</button>
+          </div>
+          <div class="topbar-actions">
+            <button id="copy-view-link" class="secondary" type="button">Copy view link</button>
+            <button id="reset-workspace" class="secondary" type="button">Reset workspace</button>
+            <button id="refresh-health" class="secondary" type="button">Refresh stats</button>
+            <button id="rebuild-index" class="secondary" type="button">Rebuild index</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats-strip" id="stats-grid">
+        <article class="stat-pill"><span>Status</span><strong id="stat-status">Loading</strong></article>
+        <article class="stat-pill"><span>Nodes</span><strong id="stat-nodes">0</strong></article>
+        <article class="stat-pill"><span>Edges</span><strong id="stat-edges">0</strong></article>
+        <article class="stat-pill"><span>Chunks</span><strong id="stat-chunks">0</strong></article>
+      </section>
+
+      <p id="workspace-status" class="workspace-status">Your workspace autosaves locally and keeps the current graph view shareable by URL.</p>
+
+      <main class="workspace-desktop">
+        <section class="layout-shell">
+          <div id="layout-root" class="layout-root" aria-label="Docking workspace"></div>
+        </section>
+      </main>
+
+      <div id="panel-stash" hidden>
+        <section id="panel-seeds" class="dock-panel">
+          <section class="guided-steps card">
+            <div class="guided-steps-head">
+              <div>
+                <p class="section-kicker">Guided unpacking</p>
+                <h2>Choose and compare</h2>
+              </div>
+              <div id="step-summary" class="graph-summary">Start by choosing one or more standards, topics, or concepts from the dataset.</div>
+            </div>
+            <div class="guided-stepper" role="tablist" aria-label="Unpacking steps">
+              <button class="step-button active" data-step="choose" type="button">1. Choose</button>
+              <button class="step-button" data-step="explore" type="button">2. Explore</button>
+              <button class="step-button" data-step="understand" type="button">3. Understand</button>
+              <button class="step-button" data-step="ask" type="button">4. Ask</button>
+            </div>
+          </section>
+
+          <section class="info-panel">
+            <div class="info-panel-head">
+              <strong>How to use this panel</strong>
+            </div>
+            <div class="info-panel-grid">
+              <article class="info-card">
+                <strong>Active seeds</strong>
+                <p>Seeds stay separate from the currently selected node so you can compare a group without losing context.</p>
+              </article>
+              <article class="info-card">
+                <strong>Explore group</strong>
+                <p>Use Explore group after adding or replacing seeds to rebuild the graph neighborhood shown on the canvas.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="selection-overview">
+            <div id="selection-spotlight" class="selection-spotlight empty">Load a graph neighborhood to see the current focus here.</div>
+            <div class="active-group-card compact-seed-card">
+              <div class="seed-card-head">
+                <span class="filter-label">Active seeds</span>
+                <div id="group-overview" class="group-overview-inline empty-list">Add another seed to compare overlap.</div>
+              </div>
+              <div id="active-seed-chips" class="chip-scroll"></div>
+            </div>
+          </section>
+
+          <section class="control-surface">
+            <div class="control-grid">
+              <label>
+                <span>Browse group</span>
+                <select id="seed-category"></select>
+                <small class="control-note">Filter the picker to one type of NGSS item.</small>
+              </label>
+              <label>
+                <span>Choose item</span>
+                <select id="seed-picker"></select>
+                <small class="control-note">All options come directly from the loaded dataset.</small>
+              </label>
+              <label>
+                <span>Graph depth</span>
+                <select id="inspect-hops" name="max_hops">
+                  <option value="1">1 hop</option>
+                  <option value="2">2 hops</option>
+                  <option value="3">3 hops</option>
+                </select>
+                <small class="control-note">Higher hop counts reveal more indirect connections.</small>
+              </label>
+            </div>
+            <div class="action-row">
+              <button id="replace-seed-button" class="secondary" type="button">Use as only seed</button>
+              <button id="add-seed-button" class="secondary" type="button">Add seed</button>
+              <button id="inspect-submit" type="button">Explore group</button>
+            </div>
+          </section>
+        </section>
+
+        <section id="panel-canvas" class="dock-panel dock-canvas-panel">
+          <section class="visual-stage canvas-visual-stage">
+            <div class="visual-toolbar">
+              <div class="visual-toolbar-copy">
+                <p class="section-kicker">Canvas</p>
+                <div id="graph-summary" class="graph-summary">No graph loaded.</div>
+                <div id="diagram-summary" class="graph-summary">Switch between graph and Mermaid views for the same current context.</div>
+              </div>
+              <div class="visual-toolbar-actions">
+                <div class="stage-view-toggle" role="tablist" aria-label="Visualization view">
+                  <button id="diagram-view-graph" class="mode-button active" data-diagram-view="graph" type="button">Graph</button>
+                  <button id="diagram-view-overview" class="mode-button" data-diagram-view="overview" type="button">Overview</button>
+                  <button id="diagram-view-relationships" class="mode-button" data-diagram-view="relationships" type="button">Relationships</button>
+                  <button id="diagram-view-paths" class="mode-button" data-diagram-view="paths" type="button">Paths</button>
+                  <button id="diagram-view-sources" class="mode-button" data-diagram-view="sources" type="button">Provenance</button>
+                </div>
+                <div class="canvas-action-row" role="toolbar" aria-label="Canvas controls">
+                  <button class="secondary small" data-canvas-action="zoom-in" type="button">+</button>
+                  <button class="secondary small" data-canvas-action="zoom-out" type="button">−</button>
+                  <button class="secondary small" data-canvas-action="fit-selection" type="button">Fit selection</button>
+                  <button class="secondary small" data-canvas-action="reset" type="button">Reset view</button>
+                </div>
+              </div>
+            </div>
+
+            <details class="details-block graph-settings">
+              <summary>Graph settings</summary>
+              <div class="graph-filter-grid">
+                <div class="filter-group">
+                  <span class="filter-label">Node types</span>
+                  <div id="node-filter-chips" class="filter-chips"></div>
+                </div>
+                <div class="filter-group">
+                  <span class="filter-label">Edge types</span>
+                  <div id="edge-filter-chips" class="filter-chips"></div>
+                </div>
+              </div>
+            </details>
+
+            <div class="visualization-stage">
+              <div id="graph-viewport" class="graph-viewport">
+                <svg id="graph-svg" viewBox="0 0 1000 640" aria-label="Knowledge graph visualization"></svg>
+                <div id="graph-empty" class="graph-empty">Pick a standard or concept to visualize its graph neighborhood.</div>
+              </div>
+              <section id="mermaid-stage" class="mermaid-stage" aria-label="Mermaid diagram visualization" hidden>
+                <div id="mermaid-empty" class="graph-empty">Explore a graph first to generate Mermaid diagram views.</div>
+                <div id="mermaid-panzoom" class="mermaid-panzoom-surface">
+                  <div id="mermaid-diagram" class="mermaid-diagram"></div>
+                </div>
+              </section>
+            </div>
+
+            <div class="graph-legend">
+              <span><i class="dot pe"></i>Performance expectation</span>
+              <span><i class="dot topic"></i>Topic</span>
+              <span><i class="dot concept"></i>Dimension concept</span>
+              <span><i class="dot other"></i>Other node</span>
+              <span class="legend-note">All canvas views are interactive. Pan, zoom, click nodes, and switch views to follow structure, paths, and provenance.</span>
+            </div>
+          </section>
+        </section>
+
+        <section id="panel-inspector" class="dock-panel">
+          <section class="inspector-block">
+            <div class="section-head compact-head">
+              <div>
+                <p class="section-kicker">Understand</p>
+                <h2>Inspector</h2>
+              </div>
+            </div>
+            <div id="node-details" class="detail-card empty">Nothing selected yet.</div>
+          </section>
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Key paths</span>
+            </div>
+            <div id="path-summaries" class="stack-list empty-list">No path summaries yet.</div>
+          </section>
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Progression</span>
+            </div>
+            <div id="progression-timeline" class="timeline empty-list">No progression timeline loaded.</div>
+          </section>
+        </section>
+
+        <section id="panel-connections" class="dock-panel">
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">NGSS connection boxes</span>
+              <button class="info-dot" type="button" aria-label="Connection box help" title="The NGSS connection boxes show same-grade DCI links, articulation across grade levels, and connected Common Core standards.">i</button>
+            </div>
+            <section class="info-panel compact">
+              <div class="info-panel-head">
+                <strong>What these connection boxes mean</strong>
+              </div>
+              <div class="info-panel-grid">
+                <article class="info-card">
+                  <strong>Connections to other DCIs in this grade level</strong>
+                  <p>These show related disciplinary core ideas at the same grade band so nearby topics can be taught together.</p>
+                </article>
+                <article class="info-card">
+                  <strong>Articulation across grade levels</strong>
+                  <p>These show the prior ideas that build toward this standard and the later ideas that extend it.</p>
+                </article>
+                <article class="info-card">
+                  <strong>Connections to Common Core</strong>
+                  <p>These show ELA and Math standards that support or connect to the performance expectations in this topic.</p>
+                </article>
+              </div>
+            </section>
+            <div id="connection-boxes" class="connection-box-grid empty-list">No NGSS connection-box data is visible for this selection yet.</div>
+          </section>
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Grouped graph relationships</span>
+              <button class="info-dot" type="button" aria-label="Grouped relationship help" title="These are the graph relationships currently visible around the selected item, grouped by meaning such as practices, core ideas, crosswalks, and evidence.">i</button>
+            </div>
+            <div id="connection-groups" class="stack-list empty-list">No grouped connections yet.</div>
+          </section>
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Selected edge explanation</span>
+              <button class="info-dot" type="button" aria-label="Edge explanation help" title="Edge explanations clarify why two nodes are linked and show provenance from the original NGSS source when available.">i</button>
+            </div>
+            <div id="edge-detail" class="detail-card empty">Click an edge in the graph or an “Explain” button to inspect a connection.</div>
+          </section>
+        </section>
+
+        <section id="panel-evidence" class="dock-panel">
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Evidence cards</span>
+              <button class="info-dot" type="button" aria-label="Evidence help" title="Evidence cards summarize clarification statements, assessment boundaries, evidence statements, and retrieved chunks that support the current selection.">i</button>
+            </div>
+            <div id="evidence-cards" class="stack-list empty-list">No evidence loaded yet.</div>
+          </section>
+        </section>
+
+        <section id="panel-sources" class="dock-panel">
+          <section class="inspector-block">
+            <div class="block-head">
+              <span class="filter-label">Source and raw support</span>
+              <button class="info-dot" type="button" aria-label="Source help" title="Source cards preserve provenance back to the original JSON file, source pages, and raw supporting text so every claim remains inspectable.">i</button>
+            </div>
+            <div id="source-panel" class="stack-list empty-list">No source information loaded yet.</div>
+          </section>
+        </section>
+
+        <section id="panel-search" class="dock-panel">
+          <section class="inspector-block">
+            <div class="section-head compact-head">
+              <div>
+                <p class="section-kicker">Browse</p>
+                <h2>Find related items</h2>
+              </div>
+            </div>
+            <form id="search-form" class="form-stack">
+              <div class="control-grid">
+                <label>
+                  <span>Browse category</span>
+                  <select id="search-category"></select>
+                  <small class="control-note">Narrow the search to one type of item.</small>
+                </label>
+                <label>
+                  <span>Browse node</span>
+                  <select id="search-query" name="query"></select>
+                  <small class="control-note">Use the selected node as the search anchor.</small>
+                </label>
+                <label>
+                  <span>Results</span>
+                  <select id="search-limit" name="limit">
+                    <option value="5">5</option>
+                    <option value="8" selected>8</option>
+                    <option value="12">12</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                  </select>
+                  <small class="control-note">Choose how many related matches to return.</small>
+                </label>
+              </div>
+              <div class="action-row">
+                <button type="submit">Show related results</button>
+              </div>
+            </form>
+            <div id="search-results" class="stack-list empty-list">No search results yet.</div>
+          </section>
+        </section>
+
+        <section id="panel-answer" class="dock-panel">
+          <section class="inspector-block">
+            <div class="section-head compact-head">
+              <div>
+                <p class="section-kicker">Ask</p>
+                <h2>Generate a grounded answer</h2>
+              </div>
+            </div>
+            <form id="answer-form" class="form-stack">
+              <div class="control-grid two-up">
+                <label>
+                  <span>Question type</span>
+                  <select id="answer-template" name="template">
+                    <option value="what-is">What is this standard or concept?</option>
+                    <option value="how-shows-up">How does this show up across the NGSS?</option>
+                    <option value="aligned-standards">What standards align to this item?</option>
+                    <option value="compare-two">How are these two items connected?</option>
+                  </select>
+                  <small class="control-note">Build a grounded question without typing one manually.</small>
+                </label>
+                <label>
+                  <span>Primary item</span>
+                  <select id="answer-query" name="query"></select>
+                  <small class="control-note">Select the main node for the answer.</small>
+                </label>
+                <label>
+                  <span>Second item</span>
+                  <select id="answer-secondary" name="secondary"></select>
+                  <small class="control-note">Only used for compare-two questions.</small>
+                </label>
+                <label>
+                  <span>Retrieved nodes</span>
+                  <select id="answer-limit" name="limit">
+                    <option value="3">3</option>
+                    <option value="5" selected>5</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                  </select>
+                  <small class="control-note">Limit how many nodes go into the answer context.</small>
+                </label>
+                <label>
+                  <span>Expand graph</span>
+                  <select id="answer-hops" name="expand_hops">
+                    <option value="0">0 hops</option>
+                    <option value="1" selected>1 hop</option>
+                    <option value="2">2 hops</option>
+                    <option value="3">3 hops</option>
+                  </select>
+                  <small class="control-note">Expand beyond the retrieved nodes when building the answer.</small>
+                </label>
+              </div>
+              <div class="action-row">
+                <button type="submit">Generate answer</button>
+              </div>
+            </form>
+
+            <div class="answer-panel">
+              <div id="answer-output" class="answer-output empty">No answer yet.</div>
+              <div id="answer-citations" class="chip-row"></div>
+            </div>
+
+            <details class="details-block">
+              <summary>Retrieved nodes</summary>
+              <div id="answer-nodes" class="stack-list empty-list">No retrieval metadata yet.</div>
+            </details>
+          </section>
+        </section>
+      </div>
+
+      <div id="toast" class="toast hidden"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

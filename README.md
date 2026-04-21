@@ -1,0 +1,115 @@
+# NGSS knowledge graph RAG
+
+Python + FastAPI service and CLI for exploring the NGSS standards with a graph-aware retrieval pipeline over the provided JSON data.
+
+The raw `JSON/*.json` files remain unchanged. Rebuilds now generate a canonical normalized artifact layer under `data/canonical/`, and runtime ingestion uses those generated artifacts as its primary source.
+
+## What it does
+
+- normalizes the NGSS JSON into graph nodes and edges
+- builds a local SQLite knowledge store with FTS5 search
+- builds deterministic vector embeddings for hybrid retrieval
+- expands search results through graph neighborhoods
+- answers questions with citations and provenance
+- ships with a CLI benchmark/explorer
+- includes a built-in browser UI served by FastAPI
+
+## Install
+
+```bash
+python -m pip install -e .
+```
+
+## Build the index
+
+```bash
+ngss-rag ingest
+```
+
+## Generate canonical artifacts only
+
+```bash
+ngss-rag canonicalize
+```
+
+## Run the API
+
+```bash
+ngss-rag serve --host 127.0.0.1 --port 8000
+```
+
+Then open `http://127.0.0.1:8000/`.
+
+## Deploy the frontend to GitHub Pages
+
+This repo includes `.github/workflows/pages.yml`, which publishes the static frontend to GitHub Pages from the `main` branch.
+
+- The workflow builds a Pages bundle with `python scripts/build_pages.py`.
+- The deployed site can target a separate API by setting the repository variable `NGSS_API_BASE_URL`.
+- If `NGSS_API_BASE_URL` is blank, the frontend uses same-origin API requests.
+
+## CLI examples
+
+```bash
+ngss-rag search "MS-PS1-2"
+ngss-rag answer "How does Patterns show up across the NGSS?"
+ngss-rag benchmark
+```
+
+## API endpoints
+
+- `POST /ingest/rebuild`
+- `GET /standards/{id}`
+- `GET /topics/{topic_id}`
+- `GET /catalog/nodes`
+- `POST /search`
+- `POST /answer`
+- `GET /graph/neighbors/{node_id}`
+- `GET /health`
+
+For full endpoint documentation, object schemas, examples, and operational notes, see [`API.md`](./API.md).
+
+## UI features
+
+- search across standards, topics, and concepts
+- use native, data-backed pickers instead of typing raw IDs or freeform questions
+- ask graph-grounded questions and inspect citations
+- inspect a node by public ID and browse its neighbors
+- visualize graph neighborhoods with an interactive SVG graph
+- drag nodes, pan/zoom the graph canvas, and recenter on selected nodes
+- add multiple standards or concepts as active seeds and explore a combined group neighborhood
+- surface shared bridge nodes that connect multiple selected seeds
+- filter graph neighborhoods by node type and edge type
+- autosave the workspace locally, including graph filters, selection, and camera position
+- share the current graph context through a deep-linkable URL
+- switch between explorer and evidence views
+- inspect grouped relationships, path summaries, edge explanations, and progression timelines
+- view source files, pages, raw support text, and provenance metadata directly in the UI
+- mobile-first stacked layout for phones and tablets
+- rebuild the local index from the browser
+
+## Optional LLM configuration
+
+The answer service works without an external model using an extractive synthesizer. To enable a hosted model, set:
+
+- `NGSS_LLM_BASE_URL`
+- `NGSS_LLM_API_KEY`
+- `NGSS_LLM_MODEL`
+
+The client uses an OpenAI-compatible chat completions API.
+
+## Canonical artifact layout
+
+Rebuilds write generated files to `data/canonical/`:
+
+- `graph.json` — **single canonical source-of-truth document** used for runtime ingestion and shared across experiences; contains graph, manifest, supplements, audit, and information views
+- `manifest.json` — projection of the manifest section from `graph.json`
+- `supplements.json` — projection of normalized supplemental records from `graph.json`
+- `audit.json` — projection of validation and audit findings from `graph.json`
+- `info/` — entity-oriented projections derived from `graph.json`:
+  - `index.json`
+  - `grades.json`
+  - `topics.json`
+  - `performance_expectations.json`
+  - `concepts.json`
+  - `crosswalks.json`

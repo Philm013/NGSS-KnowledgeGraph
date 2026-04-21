@@ -1,0 +1,2 @@
+[console_scripts]
+ngss-rag = ngss_kg_rag.cli:main

@@ -1,0 +1,69 @@
+Metadata-Version: 2.4
+Name: ngss-kg-rag
+Version: 0.1.0
+Summary: Knowledge graph powered RAG explorer for the NGSS standards
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: networkx<4.0,>=3.4
+Requires-Dist: pydantic<3.0,>=2.8
+Requires-Dist: uvicorn<1.0,>=0.30
+
+# NGSS knowledge graph RAG
+
+Python + FastAPI service and CLI for exploring the NGSS standards with a graph-aware retrieval pipeline over the provided JSON data.
+
+## What it does
+
+- normalizes the NGSS JSON into graph nodes and edges
+- builds a local SQLite knowledge store with FTS5 search
+- builds deterministic vector embeddings for hybrid retrieval
+- expands search results through graph neighborhoods
+- answers questions with citations and provenance
+- ships with a CLI benchmark/explorer
+
+## Install
+
+```bash
+python -m pip install -e .
+```
+
+## Build the index
+
+```bash
+ngss-rag ingest
+```
+
+## Run the API
+
+```bash
+ngss-rag serve --host 127.0.0.1 --port 8000
+```
+
+## CLI examples
+
+```bash
+ngss-rag search "MS-PS1-2"
+ngss-rag answer "How does Patterns show up across the NGSS?"
+ngss-rag benchmark
+```
+
+## API endpoints
+
+- `POST /ingest/rebuild`
+- `GET /standards/{id}`
+- `GET /topics/{topic_id}`
+- `POST /search`
+- `POST /answer`
+- `GET /graph/neighbors/{node_id}`
+- `GET /health`
+
+## Optional LLM configuration
+
+The answer service works without an external model using an extractive synthesizer. To enable a hosted model, set:
+
+- `NGSS_LLM_BASE_URL`
+- `NGSS_LLM_API_KEY`
+- `NGSS_LLM_MODEL`
+
+The client uses an OpenAI-compatible chat completions API.
