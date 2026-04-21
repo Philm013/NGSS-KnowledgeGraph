@@ -731,8 +731,11 @@ button:disabled {
 }
 
 .visual-toolbar-actions {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .details-block {
@@ -770,6 +773,8 @@ button:disabled {
 
 .visualization-stage {
   display: grid;
+  min-height: 0;
+  height: 100%;
 }
 
 .graph-viewport {
@@ -1269,16 +1274,17 @@ body {
   max-width: none;
   height: 100vh;
   min-height: 100vh;
-  padding: 10px;
+  padding: 6px;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .canvas-app-shell .topbar {
   gap: 10px;
-  padding: 10px 12px;
+  padding: 10px;
   align-items: center;
+  border-radius: 16px;
 }
 
 .canvas-app-shell .hero-copy {
@@ -1313,15 +1319,14 @@ body {
 
 .workspace-desktop {
   display: grid;
+  height: 100%;
 }
 
 .layout-shell {
-  border-radius: 28px;
+  border-radius: 14px;
   overflow: hidden;
   box-shadow: var(--shadow-ring);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 248, 252, 0.98)),
-    radial-gradient(circle at top right, rgba(195, 250, 245, 0.24), transparent 35%);
+  background: rgba(255, 255, 255, 0.74);
 }
 
 .layout-root {
@@ -1336,7 +1341,7 @@ body {
   display: grid;
   gap: 12px;
   min-height: 0;
-  padding: 12px;
+  padding: 8px;
   background: transparent;
 }
 
@@ -1354,8 +1359,8 @@ body {
   min-height: 0;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
-  gap: 12px;
-  padding: 12px;
+  gap: 8px;
+  padding: 8px;
 }
 
 .canvas-action-row {
@@ -1434,7 +1439,7 @@ body {
 
 .graph-viewport,
 .mermaid-stage {
-  min-height: 420px;
+  min-height: 0;
 }
 
 .mermaid-panzoom-surface {
@@ -1468,14 +1473,14 @@ body {
 }
 
 .layout-root .lm_content {
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(199, 202, 213, 0.8);
-  border-radius: 22px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
 
 .layout-root .lm_stack {
-  padding: 4px;
+  padding: 2px;
 }
 
 .layout-root .lm_header {
@@ -1519,7 +1524,7 @@ body {
 
 @media (min-width: 768px) {
   .canvas-app-shell {
-    padding: 12px;
+    padding: 8px;
   }
 
   .dock-panel .selection-overview {
