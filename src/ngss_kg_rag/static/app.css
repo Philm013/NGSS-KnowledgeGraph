@@ -1269,10 +1269,40 @@ body {
   max-width: none;
   height: 100vh;
   min-height: 100vh;
-  padding: 14px;
+  padding: 10px;
   display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr);
-  gap: 12px;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+}
+
+.canvas-app-shell .topbar {
+  gap: 10px;
+  padding: 10px 12px;
+  align-items: center;
+}
+
+.canvas-app-shell .hero-copy {
+  gap: 4px;
+}
+
+.canvas-app-shell .hero-copy .eyebrow,
+.canvas-app-shell .hero-copy .subcopy,
+.canvas-app-shell .hero-copy .hero-pills,
+.canvas-app-shell .stats-strip,
+.canvas-app-shell .workspace-status {
+  display: none;
+}
+
+.canvas-app-shell .hero-copy h1 {
+  max-width: none;
+  margin-bottom: 0;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.canvas-app-shell .topbar-side {
+  gap: 8px;
 }
 
 .workspace-desktop,
@@ -1489,7 +1519,7 @@ body {
 
 @media (min-width: 768px) {
   .canvas-app-shell {
-    padding: 18px;
+    padding: 12px;
   }
 
   .dock-panel .selection-overview {
@@ -1518,6 +1548,7 @@ body {
   .canvas-app-shell {
     height: auto;
     min-height: 100vh;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
   }
 
   .workspace-desktop {
