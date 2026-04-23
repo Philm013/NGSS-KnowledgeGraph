@@ -93,17 +93,11 @@ const DEFAULT_WORKSPACE = {
   currentStep: "choose",
   seedCategory: "all",
 };
-const GOLDEN_LAYOUT_MODULE_PATH = new URL("vendor/golden-layout/dist/esm/index.js", APP_ASSET_BASE_URL).toString();
-const PANEL_SOURCE_IDS = [
-  "panel-seeds",
-  "panel-canvas",
-  "panel-inspector",
-  "panel-connections",
-  "panel-evidence",
-  "panel-sources",
-  "panel-search",
-  "panel-answer",
-];
+// Default positions for the two floating panels (pixels from left/top)
+const PANEL_DEFAULTS = {
+  seeds: { x: 8, y: 56 },
+  inspector: { x: null, y: 56 }, // null = placed on the right side dynamically
+};
 
 const EDGE_META = {
   GRADE_HAS_TOPIC: {
@@ -186,7 +180,7 @@ const state = {
   catalogByPublicId: new Map(),
   uiTabs: {
     inspector: "overview",
-    workbench: "browse",
+    workbench: "choose",
   },
   mermaidNodeLookup: new Map(),
   mermaidRenderNonce: 0,
@@ -197,8 +191,7 @@ const state = {
     scale: 1,
   },
   mermaidPan: null,
-  layoutManager: null,
-  goldenLayoutCtor: null,
+  panelDrags: new Map(),
   pagesData: null,
   pagesDataPromise: null,
   localGraphIndex: null,
@@ -401,194 +394,122 @@ async function localApi(path, options = {}) {
   throw new Error(`Unsupported Pages request: ${pathname}`);
 }
 
-async function loadGoldenLayoutCtor() {
-  if (state.goldenLayoutCtor) return state.goldenLayoutCtor;
-  const module = await import(GOLDEN_LAYOUT_MODULE_PATH);
-  state.goldenLayoutCtor = module.GoldenLayout;
-  return state.goldenLayoutCtor;
-}
+// ─── Native floating-panel system (replaces Golden Layout) ───────────────────
 
-function defaultDockLayout() {
-  return {
-    settings: {
-      hasHeaders: true,
-      reorderEnabled: true,
-      showPopoutIcon: true,
-      showCloseIcon: false,
-      showMaximiseIcon: true,
-      popoutWholeStack: true,
-    },
-    root: {
-      type: "row",
-      content: [
-        {
-          type: "stack",
-          size: "18%",
-          isClosable: false,
-          content: [
-            {
-              type: "component",
-              title: "Seeds and controls",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-seeds" },
-            },
-            {
-              type: "component",
-              title: "Browse",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-search" },
-            },
-          ],
-        },
-        {
-          type: "component",
-          title: "Graph canvas",
-          componentType: "dom-panel",
-          size: "64%",
-          isClosable: false,
-          componentState: { panelId: "panel-canvas" },
-        },
-        {
-          type: "stack",
-          size: "18%",
-          isClosable: false,
-          content: [
-            {
-              type: "component",
-              title: "Inspector",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-inspector" },
-            },
-            {
-              type: "component",
-              title: "Connections",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-connections" },
-            },
-            {
-              type: "component",
-              title: "Evidence",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-evidence" },
-            },
-            {
-              type: "component",
-              title: "Sources",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-sources" },
-            },
-            {
-              type: "component",
-              title: "Ask",
-              componentType: "dom-panel",
-              isClosable: false,
-              componentState: { panelId: "panel-answer" },
-            },
-          ],
-        },
-      ],
-    },
-  };
-}
-
-function normalizeDockSize(value, fallbackUnit) {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return `${value}${fallbackUnit}`;
-  }
-  return value;
-}
-
-function normalizeDockItemConfig(item) {
-  if (!item || typeof item !== "object") return item;
-  return {
-    ...item,
-    size: normalizeDockSize(item.size, "%"),
-    minSize: normalizeDockSize(item.minSize, "px"),
-    width: normalizeDockSize(item.width, "px"),
-    height: normalizeDockSize(item.height, "px"),
-    content: Array.isArray(item.content) ? item.content.map((child) => normalizeDockItemConfig(child)) : item.content,
-    root: item.root ? normalizeDockItemConfig(item.root) : item.root,
-    openPopouts: Array.isArray(item.openPopouts) ? item.openPopouts.map((child) => normalizeDockItemConfig(child)) : item.openPopouts,
-  };
-}
-
-function normalizeDockLayoutConfig(layoutConfig) {
-  if (!layoutConfig || typeof layoutConfig !== "object") return defaultDockLayout();
-  return normalizeDockItemConfig(layoutConfig);
-}
-
-function panelSourceById(panelId) {
-  return document.getElementById(panelId);
-}
-
-function restorePanelToStash(panelId) {
-  const source = panelSourceById(panelId);
-  const stash = $("#panel-stash");
-  if (source && stash && source.parentElement !== stash) stash.appendChild(source);
-}
-
-function persistDockLayout() {
-  if (!state.layoutManager) return null;
-  try {
-    return state.layoutManager.saveLayout();
-  } catch (_error) {
-    return null;
-  }
-}
-
-async function initDockLayout(layoutConfig = null) {
-  const layoutRoot = $("#layout-root");
-  if (!layoutRoot) return;
-  const GoldenLayout = await loadGoldenLayoutCtor();
-  if (state.layoutManager) {
-    try {
-      state.layoutManager.destroy?.();
-    } catch (_error) {
-      // Ignore layout teardown issues.
-    }
-    PANEL_SOURCE_IDS.forEach((panelId) => restorePanelToStash(panelId));
-  }
-  const layout = new GoldenLayout(layoutRoot);
-  layout.resizeWithContainerAutomatically = true;
-  layout.registerComponentFactoryFunction("dom-panel", (container, componentState) => {
-    const panelId = componentState?.panelId;
-    const source = panelSourceById(panelId);
-    if (!source) {
-      const fallback = document.createElement("div");
-      fallback.className = "dock-panel";
-      fallback.textContent = `Missing panel: ${panelId}`;
-      container.element.appendChild(fallback);
-      return { rootHtmlElement: fallback };
-    }
-    source.hidden = false;
-    container.element.appendChild(source);
-    const resize = () => {
-      if (panelId === "panel-canvas") {
-        renderVisualizationStage();
-      } else if (panelId === "panel-inspector") {
-        renderInspector();
-      }
+function serializePanelStates() {
+  const states = {};
+  document.querySelectorAll(".floating-panel").forEach((panel) => {
+    const id = panel.dataset.panelId;
+    if (!id) return;
+    states[id] = {
+      x: Math.round(parseFloat(panel.style.left) || 0),
+      y: Math.round(parseFloat(panel.style.top) || 0),
+      collapsed: panel.classList.contains("collapsed"),
     };
-    container.on("resize", resize);
-    container.on("show", resize);
-    container.on("destroy", () => restorePanelToStash(panelId));
-    return { rootHtmlElement: source };
   });
-  layout.on("stateChanged", () => scheduleWorkspacePersist(220));
-  const normalizedLayoutConfig = normalizeDockLayoutConfig(layoutConfig || defaultDockLayout());
-  layout.loadLayout(normalizedLayoutConfig);
-  state.layoutManager = layout;
-  logDebug("layout", "initialized", {
-    hasSavedLayout: Boolean(layoutConfig),
-    usedNormalizedLayout: normalizedLayoutConfig !== layoutConfig,
-    panels: PANEL_SOURCE_IDS,
+  return states;
+}
+
+function placePanelInitial(panel, savedState) {
+  const id = panel.dataset.panelId;
+  const defaults = PANEL_DEFAULTS[id] || { x: 8, y: 56 };
+  const x = savedState?.x !== undefined
+    ? savedState.x
+    : defaults.x !== null
+      ? defaults.x
+      : Math.max(0, window.innerWidth - panel.offsetWidth - 8);
+  const y = savedState?.y !== undefined ? savedState.y : defaults.y;
+  panel.style.left = `${Math.max(0, Math.min(x, window.innerWidth - panel.offsetWidth))}px`;
+  panel.style.top = `${Math.max(0, Math.min(y, window.innerHeight - 48))}px`;
+  panel.style.right = "auto";
+  panel.style.bottom = "auto";
+}
+
+function makeFloatingPanelDraggable(panel) {
+  const header = panel.querySelector("[data-drag-handle]");
+  if (!header) return;
+  let dragging = false;
+  let startClientX = 0;
+  let startClientY = 0;
+  let startPanelX = 0;
+  let startPanelY = 0;
+
+  header.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("button") || event.target.closest("[role='tablist']")) return;
+    event.preventDefault();
+    dragging = true;
+    startClientX = event.clientX;
+    startClientY = event.clientY;
+    startPanelX = parseFloat(panel.style.left) || 0;
+    startPanelY = parseFloat(panel.style.top) || 0;
+    header.setPointerCapture(event.pointerId);
+    panel.classList.add("is-dragging");
+    panel.style.transition = "none";
   });
+
+  header.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    const dx = event.clientX - startClientX;
+    const dy = event.clientY - startClientY;
+    const newX = Math.max(0, Math.min(window.innerWidth - panel.offsetWidth, startPanelX + dx));
+    const newY = Math.max(0, Math.min(window.innerHeight - 48, startPanelY + dy));
+    panel.style.left = `${newX}px`;
+    panel.style.top = `${newY}px`;
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+  });
+
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    panel.classList.remove("is-dragging");
+    panel.style.transition = "";
+    scheduleWorkspacePersist();
+  };
+
+  header.addEventListener("pointerup", endDrag);
+  header.addEventListener("pointercancel", endDrag);
+}
+
+function initFloatingPanels(panelStates = {}) {
+  document.querySelectorAll(".floating-panel").forEach((panel) => {
+    const id = panel.dataset.panelId;
+    const saved = panelStates[id] || {};
+
+    // Restore collapse state
+    if (saved.collapsed) {
+      panel.classList.add("collapsed");
+    } else {
+      panel.classList.remove("collapsed");
+    }
+
+    // Position (needs offsetWidth, so defer a tick for right-side defaults)
+    if (saved.x !== undefined) {
+      panel.style.left = `${Math.max(0, saved.x)}px`;
+      panel.style.top = `${Math.max(0, saved.y || 56)}px`;
+      panel.style.right = "auto";
+      panel.style.bottom = "auto";
+    } else {
+      requestAnimationFrame(() => placePanelInitial(panel, saved));
+    }
+
+    // Wire collapse button
+    const collapseBtn = panel.querySelector(".fpanel-collapse-btn");
+    if (collapseBtn) {
+      const existing = collapseBtn._collapseHandler;
+      if (existing) collapseBtn.removeEventListener("click", existing);
+      const handler = () => {
+        panel.classList.toggle("collapsed");
+        scheduleWorkspacePersist();
+      };
+      collapseBtn._collapseHandler = handler;
+      collapseBtn.addEventListener("click", handler);
+    }
+
+    // Wire drag
+    makeFloatingPanelDraggable(panel);
+  });
+  logDebug("layout", "floating panels initialized", { panelCount: document.querySelectorAll(".floating-panel").length });
 }
 
 async function api(path, options = {}) {
@@ -875,7 +796,7 @@ function serializeWorkspaceState() {
       scale: Number(state.mermaidTransform.scale.toFixed(3)),
     },
     positions: serializeGraphPositions(),
-    layout: persistDockLayout(),
+    panelStates: serializePanelStates(),
   };
 }
 
@@ -924,7 +845,7 @@ function mergedWorkspaceState() {
     transform: hasSharedContext ? null : stored.transform || null,
     mermaidTransform: hasSharedContext ? null : stored.mermaidTransform || null,
     positions: hasSharedContext ? null : stored.positions || null,
-    layout: hasSharedContext ? null : normalizeDockLayoutConfig(stored.layout || null),
+    panelStates: hasSharedContext ? null : stored.panelStates || null,
     selectedEdgeId: hasSharedContext ? null : stored.selectedEdgeId || null,
     selectedPublicId: shared.selectedPublicId || stored.selectedPublicId || null,
     viewMode: shared.viewMode || stored.viewMode || DEFAULT_WORKSPACE.viewMode,
@@ -2983,12 +2904,12 @@ function wireForms() {
     state.diagramView = DEFAULT_WORKSPACE.diagramView;
     state.currentStep = DEFAULT_WORKSPACE.currentStep;
     state.mermaidTransform = { x: 0, y: 0, scale: 1 };
-    state.uiTabs = { inspector: "overview", workbench: "browse" };
+    state.uiTabs = { inspector: "overview", workbench: "choose" };
     applyCatalogSelections(DEFAULT_WORKSPACE);
     syncAnswerTemplateUi();
-    await initDockLayout();
+    initFloatingPanels({});
     setTabState("inspector", "overview");
-    setTabState("workbench", "browse");
+    setTabState("workbench", "choose");
     document.querySelectorAll("[data-view-mode]").forEach((button) => {
       button.classList.toggle("active", button.dataset.viewMode === DEFAULT_WORKSPACE.viewMode);
     });
@@ -3155,7 +3076,7 @@ async function bootstrap() {
   state.viewMode = restored.viewMode;
   state.diagramView = normalizeDiagramView(restored.diagramView || DEFAULT_WORKSPACE.diagramView);
   state.currentStep = GUIDED_STEPS[restored.currentStep] ? restored.currentStep : DEFAULT_WORKSPACE.currentStep;
-  await initDockLayout(restored.layout || null);
+  initFloatingPanels(restored.panelStates || {});
   document.querySelectorAll("[data-view-mode]").forEach((button) => {
     button.classList.toggle("active", button.dataset.viewMode === restored.viewMode);
   });
