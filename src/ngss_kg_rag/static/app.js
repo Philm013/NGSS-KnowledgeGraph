@@ -416,14 +416,15 @@ function serializePanelStates() {
 
 function placePanelInitial(panel, savedState) {
   const id = panel.dataset.panelId;
-  const defaults = PANEL_DEFAULTS[id] || { x: 8, y: 56 };
+  const defaults = PANEL_DEFAULTS[id] || { x: 8, y: TOPBAR_HEIGHT + 8 };
+  const panelWidth = panel.offsetWidth || 300; // fallback matches CSS default width
   const x = savedState?.x !== undefined
     ? savedState.x
     : defaults.x !== null
       ? defaults.x
-      : Math.max(0, window.innerWidth - panel.offsetWidth - 8);
+      : Math.max(0, window.innerWidth - panelWidth - 8);
   const y = savedState?.y !== undefined ? savedState.y : defaults.y;
-  panel.style.left = `${Math.max(0, Math.min(x, window.innerWidth - panel.offsetWidth))}px`;
+  panel.style.left = `${Math.max(0, Math.min(x, window.innerWidth - panelWidth))}px`;
   panel.style.top = `${Math.max(0, Math.min(y, window.innerHeight - TOPBAR_HEIGHT))}px`;
   panel.style.right = "auto";
   panel.style.bottom = "auto";
@@ -456,7 +457,8 @@ function makeFloatingPanelDraggable(panel) {
     const dx = event.clientX - startClientX;
     const dy = event.clientY - startClientY;
     const newX = Math.max(0, Math.min(window.innerWidth - panel.offsetWidth, startPanelX + dx));
-    const newY = Math.max(0, Math.min(window.innerHeight - TOPBAR_HEIGHT, startPanelY + dy));
+    const headerHeight = header.offsetHeight || TOPBAR_HEIGHT;
+    const newY = Math.max(0, Math.min(window.innerHeight - headerHeight, startPanelY + dy));
     panel.style.left = `${newX}px`;
     panel.style.top = `${newY}px`;
     panel.style.right = "auto";
