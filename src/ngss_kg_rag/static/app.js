@@ -93,10 +93,14 @@ const DEFAULT_WORKSPACE = {
   currentStep: "choose",
   seedCategory: "all",
 };
+const TOPBAR_HEIGHT = 48;
+
+const panelCollapseHandlers = new WeakMap();
+
 // Default positions for the two floating panels (pixels from left/top)
 const PANEL_DEFAULTS = {
-  seeds: { x: 8, y: 56 },
-  inspector: { x: null, y: 56 }, // null = placed on the right side dynamically
+  seeds: { x: 8, y: TOPBAR_HEIGHT + 8 },
+  inspector: { x: null, y: TOPBAR_HEIGHT + 8 }, // null = placed on the right side dynamically
 };
 
 const EDGE_META = {
@@ -420,7 +424,7 @@ function placePanelInitial(panel, savedState) {
       : Math.max(0, window.innerWidth - panel.offsetWidth - 8);
   const y = savedState?.y !== undefined ? savedState.y : defaults.y;
   panel.style.left = `${Math.max(0, Math.min(x, window.innerWidth - panel.offsetWidth))}px`;
-  panel.style.top = `${Math.max(0, Math.min(y, window.innerHeight - 48))}px`;
+  panel.style.top = `${Math.max(0, Math.min(y, window.innerHeight - TOPBAR_HEIGHT))}px`;
   panel.style.right = "auto";
   panel.style.bottom = "auto";
 }
@@ -452,7 +456,7 @@ function makeFloatingPanelDraggable(panel) {
     const dx = event.clientX - startClientX;
     const dy = event.clientY - startClientY;
     const newX = Math.max(0, Math.min(window.innerWidth - panel.offsetWidth, startPanelX + dx));
-    const newY = Math.max(0, Math.min(window.innerHeight - 48, startPanelY + dy));
+    const newY = Math.max(0, Math.min(window.innerHeight - TOPBAR_HEIGHT, startPanelY + dy));
     panel.style.left = `${newX}px`;
     panel.style.top = `${newY}px`;
     panel.style.right = "auto";
@@ -486,7 +490,7 @@ function initFloatingPanels(panelStates = {}) {
     // Position (needs offsetWidth, so defer a tick for right-side defaults)
     if (saved.x !== undefined) {
       panel.style.left = `${Math.max(0, saved.x)}px`;
-      panel.style.top = `${Math.max(0, saved.y || 56)}px`;
+      panel.style.top = `${Math.max(0, saved.y ?? TOPBAR_HEIGHT + 8)}px`;
       panel.style.right = "auto";
       panel.style.bottom = "auto";
     } else {
@@ -496,13 +500,13 @@ function initFloatingPanels(panelStates = {}) {
     // Wire collapse button
     const collapseBtn = panel.querySelector(".fpanel-collapse-btn");
     if (collapseBtn) {
-      const existing = collapseBtn._collapseHandler;
+      const existing = panelCollapseHandlers.get(collapseBtn);
       if (existing) collapseBtn.removeEventListener("click", existing);
       const handler = () => {
         panel.classList.toggle("collapsed");
         scheduleWorkspacePersist();
       };
-      collapseBtn._collapseHandler = handler;
+      panelCollapseHandlers.set(collapseBtn, handler);
       collapseBtn.addEventListener("click", handler);
     }
 
