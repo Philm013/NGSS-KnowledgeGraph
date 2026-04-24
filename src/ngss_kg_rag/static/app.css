@@ -33,12 +33,13 @@
   --concept: var(--rose);
   --other: var(--coral);
   /* Sharp corners — user preference */
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 3px;
-  --radius-xl: 3px;
-  --radius-2xl: 3px;
-  --radius-pill: 3px;
+  --radius: 2px;
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-pill: var(--radius);
   --shadow-ring: 0 0 0 1px var(--ring);
   --shadow-panel: 0 2px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border);
   font-family: "Noto Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -842,7 +843,7 @@ button:disabled {
   display: inline-block;
   inline-size: 8px;
   block-size: 8px;
-  border-radius: 1px;
+  border-radius: var(--radius-sm);
   margin-right: 5px;
 }
 
@@ -1675,6 +1676,10 @@ html, body {
   gap: 0;
   flex-wrap: wrap;
   border-top: 1px solid var(--border);
+  /* Negative margins extend the tab bar flush to the panel edges,
+     compensating for the 8px horizontal padding of .fpanel-header.
+     The -5px bottom pulls the border-bottom underline indicator flush
+     against the header's bottom border. */
   margin: 2px -8px -5px;
 }
 
