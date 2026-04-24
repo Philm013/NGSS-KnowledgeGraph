@@ -2172,7 +2172,7 @@ function addMermaidNodeDrag(container) {
       try {
         nodeEl.releasePointerCapture(event.pointerId);
       } catch (_error) {
-        // Ignore capture release issues.
+        logDebug("mermaid-drag", "pointer capture release failed", { message: _error?.message });
       }
     };
 
@@ -2334,7 +2334,8 @@ function gradeBandForNode(node) {
   const publicId = publicIdFor(node);
   const gradeLabel = (node.payload?.grade_label || node.payload?.grade_id || "").toLowerCase();
   if (/^K-/i.test(publicId) || gradeLabel.includes("k-2") || gradeLabel.includes("k–2") || gradeLabel.includes("primary")) return "k_2";
-  if (/^(1|2|3|4|5)-/i.test(publicId) || gradeLabel.includes("3-5") || gradeLabel.includes("3–5") || gradeLabel.includes("elementary")) return "elementary";
+  // Match elementary grades: must be a single digit 1–5 followed by a hyphen and a known prefix pattern
+  if (/^[1-5]-[A-Z]/i.test(publicId) || gradeLabel.includes("3-5") || gradeLabel.includes("3–5") || gradeLabel.includes("elementary")) return "elementary";
   if (/^MS-/i.test(publicId) || gradeLabel.includes("middle")) return "middle";
   if (/^HS-/i.test(publicId) || gradeLabel.includes("high")) return "high";
   return null;
