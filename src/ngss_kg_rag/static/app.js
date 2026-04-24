@@ -1,4 +1,6 @@
 const SVG_NS = "http://www.w3.org/2000/svg";
+const SVG_WIDTH = 1800;
+const SVG_HEIGHT = 1100;
 const BAND_ORDER = ["primary", "elementary", "middle", "high"];
 const WORKSPACE_STORAGE_KEY = "ngss-kg-rag.workspace.v1";
 const RUNTIME_CONFIG = window.NGSS_CONFIG || {};
@@ -21,59 +23,63 @@ const CATALOG_CATEGORY_LABELS = {
 const ANSWER_TEMPLATES = {
   "what-is": {
     needsSecondary: false,
-    build: ({ primary }) => `What is ${primary.public_id}?`,
+    build: ({ primary }) => `What is ${primary.public_id}, and where does it fit in the NGSS?`,
   },
   "how-shows-up": {
     needsSecondary: false,
-    build: ({ primary }) => `How does ${primary.public_id} show up across the NGSS?`,
+    build: ({ primary }) => `How does ${primary.public_id} show up across the NGSS, and what other standards or concepts is it connected to?`,
   },
   "aligned-standards": {
     needsSecondary: false,
-    build: ({ primary }) => `What standards align to ${primary.public_id}?`,
+    build: ({ primary }) => `Which standards and concepts are aligned to ${primary.public_id} in the NGSS graph?`,
   },
   "compare-two": {
     needsSecondary: true,
-    build: ({ primary, secondary }) => `How are ${primary.public_id} and ${secondary.public_id} connected in the NGSS graph?`,
+    build: ({ primary, secondary }) => `How are ${primary.public_id} and ${secondary.public_id} connected in the NGSS graph, and what do they share?`,
   },
 };
 const DIAGRAM_VIEWS = {
   graph: {
-    title: "Interactive graph canvas",
-    summary: "A full-canvas graph view for dragging, panning, zooming, and following shared neighborhood structure.",
+    title: "Interactive graph",
+    summary: "A live, physics-based graph where you can drag individual nodes, pan, and zoom. This is the main view for exploring neighborhood structure — especially useful when you have multiple seeds loaded.",
   },
   overview: {
-    title: "Mermaid overview",
-    summary: "A compact Mermaid topology centered on active seeds. Mermaid nodes are auto-laid out (pan/zoom/click supported).",
+    title: "Overview map",
+    summary: "A high-level Mermaid diagram centered on your active seeds and their closest neighbors. Good for getting a quick read on what's connected to what. You can drag nodes to rearrange the layout.",
   },
   relationships: {
-    title: "Mermaid relationship map",
-    summary: "Grouped relationship lanes show neighborhood links in Mermaid's fixed layout (pan/zoom/click supported).",
+    title: "Relationship lanes",
+    summary: "The selected node's connections are grouped by type and laid out in labeled lanes — useful for seeing which practices, core ideas, and crosscutting concepts a performance expectation aligns to. Drag nodes to rearrange.",
   },
   paths: {
-    title: "Mermaid path flow",
-    summary: "A compact path view traces selected branches in Mermaid's fixed layout (pan/zoom/click supported).",
+    title: "Path trace",
+    summary: "Traces the step-by-step path from the seed through the graph, plus the top branching connections from the selected node. Drag nodes to rearrange.",
   },
   sources: {
-    title: "Mermaid provenance trace",
-    summary: "A provenance-first Mermaid trace links source pages, evidence, and chunks in Mermaid's fixed layout.",
+    title: "Provenance trace",
+    summary: "Traces the selected node back to its source file, document pages, evidence statements, and retrieved text chunks — helpful when you want to verify exactly where the data comes from. Drag nodes to rearrange.",
+  },
+  progression: {
+    title: "Grade progression",
+    summary: "Arranges connected nodes by grade band — K–2, 3–5, middle school, and high school — so you can see how ideas in this topic area build across K–12. Drag nodes to rearrange.",
   },
 };
 const GUIDED_STEPS = {
   choose: {
     title: "Choose",
-    summary: "Pick one or more standards, topics, or concepts from the dataset-backed controls.",
+    summary: "Start by picking one or more standards, topics, or concepts to explore. You can add multiple seeds to see how they overlap in the graph — the more seeds you add, the richer the comparison.",
   },
   explore: {
     title: "Explore",
-    summary: "Open the graph neighborhood and switch Mermaid views to see structure, paths, and provenance.",
+    summary: "The graph is now loaded. Try dragging nodes to see the structure more clearly, or switch between Graph and Mermaid views to look at the same neighborhood from different angles.",
   },
   understand: {
     title: "Understand",
-    summary: "Inspect the selected node, its NGSS connection boxes, linked evidence, and relationship details.",
+    summary: "You've selected a node. The Inspector panel shows its details, how it connects to other standards, and what the original NGSS source says about it — click any edge to see an explanation of that relationship.",
   },
   ask: {
     title: "Ask",
-    summary: "Run guided search or answer prompts built directly from the current dataset selections.",
+    summary: "Use the guided question forms to generate an answer grounded in this dataset. The response draws on retrieved chunks and graph traversal, giving you a structured synthesis of what the NGSS says.",
   },
 };
 const DEFAULT_WORKSPACE = {
@@ -107,52 +113,52 @@ const EDGE_META = {
   GRADE_HAS_TOPIC: {
     label: "belongs to grade band",
     category: "Grade context",
-    explanation: "This topic sits inside the selected grade band or grade-level cluster.",
+    explanation: "This topic is grouped within the grade band you're looking at — it's how the NGSS organizes content by developmental stage.",
   },
   TOPIC_HAS_PE: {
     label: "contains performance expectation",
     category: "Performance expectations",
-    explanation: "This topic includes the linked performance expectation.",
+    explanation: "This performance expectation lives inside this topic. Topics act as the organizing umbrella for one or more performance expectations at a given grade level.",
   },
   PE_ALIGNS_TO_DIMENSION: {
     label: "aligns to dimension",
     category: "Dimension links",
-    explanation: "This performance expectation is aligned to an NGSS dimension concept such as a practice, DCI, or crosscutting concept.",
+    explanation: "This performance expectation is deliberately aligned to this NGSS dimension — meaning students are expected to engage with this practice, core idea, or crosscutting concept when demonstrating the standard.",
   },
   DIMENSION_HAS_PROGRESSION: {
     label: "has progression statement",
     category: "Progressions",
-    explanation: "This concept is supported by a progression statement for a grade-band level.",
+    explanation: "This is the progression statement for this concept at a particular grade band. Progressions describe how student understanding is expected to build from kindergarten through grade 12.",
   },
   PE_HAS_EVIDENCE: {
     label: "is supported by evidence statement",
     category: "Evidence",
-    explanation: "This performance expectation has an evidence statement describing what supporting work or reasoning should be visible.",
+    explanation: "This evidence statement describes what observable evidence suggests a student understands this performance expectation. It's the NGSS's way of making the standard more concrete and assessable.",
   },
   PE_HAS_SOURCE_PAGE: {
     label: "comes from source page",
     category: "Sources",
-    explanation: "This performance expectation appears on the linked page in the original NGSS source file.",
+    explanation: "This links back to the specific page in the original NGSS document where this performance expectation appears — useful when you want to trace the data back to its source.",
   },
   TOPIC_CONNECTS_TO_DCI_IN_GRADE: {
     label: "connects to DCI in grade",
     category: "Related DCIs",
-    explanation: "The topic is explicitly linked to another disciplinary core idea in the source data.",
+    explanation: "These two topics share a disciplinary core idea connection at the same grade level — the NGSS calls this out explicitly because teaching them together tends to reinforce understanding.",
   },
   TOPIC_ARTICULATES_TO_DCI_ACROSS_GRADES: {
     label: "articulates across grades",
     category: "Cross-grade articulation",
-    explanation: "The topic references a related DCI connection that appears across grade bands.",
+    explanation: "This is a cross-grade articulation — the source data explicitly links this topic's ideas to how the same core ideas develop over time across different grade bands.",
   },
   PE_CROSSWALKS_TO_STANDARD: {
     label: "crosswalks to external standard",
     category: "Crosswalks",
-    explanation: "The performance expectation is connected to a Common Core ELA or Math standard.",
+    explanation: "This performance expectation connects to a Common Core ELA or Math standard. The italicized PE names in the print standards signal this kind of connection.",
   },
   TOPIC_CROSSWALKS_TO_STANDARD: {
     label: "topic crosswalk",
     category: "Crosswalks",
-    explanation: "The topic carries a Common Core crosswalk reference even when it is not attached to a single PE.",
+    explanation: "This topic has a Common Core crosswalk that applies broadly — not just to a single performance expectation, but to the overall ideas in this topic cluster.",
   },
 };
 
@@ -882,9 +888,9 @@ function persistWorkspaceState() {
   const snapshot = serializeWorkspaceState();
   try {
     window.localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify(snapshot));
-    setWorkspaceStatus("Workspace autosaved locally. Shareable URL follows the current graph view.");
+    setWorkspaceStatus("Workspace saved. The URL below reflects your current view and can be shared.");
   } catch (_error) {
-    setWorkspaceStatus("Workspace could not be saved locally, but the current graph view still updates in the URL.");
+    setWorkspaceStatus("Couldn't save the workspace locally, but the URL still reflects your current view.");
   }
   syncWorkspaceUrl(snapshot);
 }
@@ -967,16 +973,16 @@ function renderGroupOverview() {
           `,
         )
         .join("")
-    : '<span class="chip">No active seeds</span>';
+    : '<span class="chip">No seeds active</span>';
 
   const groupIsRendered = graphMatchesActiveSeeds();
   const bridges = groupIsRendered ? groupBridgeNodes() : [];
   const sharedCount = state.graph?.shared_nodes_count || 0;
   const bridgeSummary = bridges.length
-    ? `Shared: ${bridges.slice(0, 3).map((node) => publicIdFor(node)).join(", ")}`
+    ? `Shared nodes: ${bridges.slice(0, 3).map((node) => publicIdFor(node)).join(", ")}`
     : seeds.length > 1
-      ? `${sharedCount} shared node${sharedCount === 1 ? "" : "s"} visible`
-      : "Add another seed to compare overlap";
+      ? `${sharedCount} shared node${sharedCount === 1 ? "" : "s"} in the current view`
+      : "Add another seed to compare and see overlap";
   const seedSummary = seeds.length ? `Group: ${seeds.join(" • ")}` : "No active seeds selected";
   $("#group-overview").innerHTML = `
     <span class="group-summary-pill"><strong>${escapeHtml(seeds.length === 1 ? "1 seed" : `${seeds.length} seeds`)}</strong></span>
@@ -997,7 +1003,7 @@ function renderSelectionSpotlight() {
   if (!target) return;
   if (!node) {
     target.className = "selection-spotlight empty";
-    target.innerHTML = "Load a graph neighborhood to see the current focus here.";
+    target.innerHTML = "Load a graph neighborhood to see what's currently in focus here.";
     return;
   }
   const payload = context?.node?.payload || node.payload || {};
@@ -1048,8 +1054,8 @@ function renderSelectionSpotlight() {
       <div class="stack-meta">
         ${escapeHtml(
           activeSeeds.length > 1
-            ? `${isSeed ? "This selected item is one of the active seeds." : "This selected item is not a seed; it is being viewed inside the active comparison group."} The current group includes ${activeSeeds.join(", ")}.`
-            : "Use Add seed to compare this item with another standard or concept.",
+            ? `${isSeed ? "This is one of the active seed nodes you selected." : "This node isn't a seed — it's part of the shared neighborhood being explored."} The current group includes ${activeSeeds.join(", ")}.`
+            : "Add another seed to compare this item with another standard or concept.",
         )}
       </div>
     </div>
@@ -1226,9 +1232,9 @@ function renderStackItem(item, options = {}) {
         <span class="type-badge">${escapeHtml(item.node_type || item.family || "node")}</span>
       </div>
       <div class="stack-meta">${escapeHtml(item.description || "No description available.")}</div>
-      ${item.score !== undefined ? `<div class="stack-meta">Score: ${item.score.toFixed(3)}</div>` : ""}
-      ${reasons ? `<div class="stack-meta">Why it matched: ${escapeHtml(reasons)}</div>` : ""}
-      ${path ? `<div class="stack-meta">Path: ${escapeHtml(path)}</div>` : ""}
+      ${item.score !== undefined ? `<div class="stack-meta">Relevance score: ${item.score.toFixed(3)}</div>` : ""}
+      ${reasons ? `<div class="stack-meta">Here's why it showed up: ${escapeHtml(reasons)}</div>` : ""}
+      ${path ? `<div class="stack-meta">Path to seed: ${escapeHtml(path)}</div>` : ""}
       <div class="chip-row">
         ${sourceBadges(item.payload || {}).map((badge) => `<span class="chip">${escapeHtml(badge)}</span>`).join("")}
       </div>
@@ -1292,7 +1298,7 @@ function syncAnswerTemplateUi() {
 
 function renderNodeSummary(node, context) {
   if (!node) {
-    return '<div class="detail-card empty">Nothing selected yet.</div>';
+    return '<div class="detail-card empty">Click any node in the graph to start exploring its details here.</div>';
   }
   const payload = node.payload || {};
   const hierarchy = [
@@ -1308,7 +1314,7 @@ function renderNodeSummary(node, context) {
     ["Connected seeds", node.seed_match_count ? node.seed_matches.join(", ") : null],
     ["Path", Array.isArray(node.path_from_seed) ? node.path_from_seed.join(" -> ") : null],
   ].filter(([, value]) => value !== undefined && value !== null && value !== "");
-  const contextLabel = context ? "Source-backed context is loaded for this selection." : "This summary is coming from the current graph view.";
+  const contextLabel = context ? "The details below are enriched with source-backed context loaded for this selection." : "This summary comes from the current graph view — click 'Explore group' to load richer source context.";
   return `
     <div class="detail-card">
       <div class="detail-title">
@@ -1425,7 +1431,7 @@ function renderConnectionGroups() {
           `,
         )
         .join("")
-    : '<div class="stack-item empty">No direct connections available for this node in the current graph view.</div>';
+    : '<div class="stack-item empty">No direct connections are visible for this node in the current graph view. Try increasing the hop depth and reloading.</div>';
 }
 
 function renderConnectionBoxes() {
@@ -1451,7 +1457,7 @@ function renderConnectionBoxes() {
     {
       title: "Connections to other DCIs in this grade level",
       subtitle: "Related disciplinary core ideas at the same grade band",
-      empty: "No same-grade DCI connections are listed for this selection in the source data.",
+      empty: "No same-grade DCI connections are listed for this selection in the source data — this is expected for dimension concepts and some topics.",
       items: sameGrade.map((item) => ({
         title: item.code,
         meta: item.performanceExpectations.length ? `Connected PE(s): ${item.performanceExpectations.join(", ")}` : "Topic-level connection",
@@ -1461,7 +1467,7 @@ function renderConnectionBoxes() {
     {
       title: "Articulation of DCIs across grade levels",
       subtitle: "Prior foundations and later extensions across grade bands",
-      empty: "No cross-grade articulation entries are listed for this selection in the source data.",
+      empty: "No cross-grade articulation entries are listed for this selection — this is common for nodes that sit at the boundaries of the NGSS grade bands.",
       items: acrossGrades.map((item) => ({
         title: item.code,
         meta: item.performanceExpectations.length ? `Mapped PE(s): ${item.performanceExpectations.join(", ")}` : "Topic-level articulation",
@@ -1471,7 +1477,7 @@ function renderConnectionBoxes() {
     {
       title: "Connections to the Common Core State Standards",
       subtitle: "ELA and Math links aligned to this neighborhood. Italicized PE names in the print standards indicate a connectable, not prerequisite, Common Core relationship; that formatting is not exposed separately in the source JSON.",
-      empty: "No Common Core crosswalks are visible for this selection in the current graph neighborhood.",
+      empty: "No Common Core crosswalks are visible for this selection in the current neighborhood — try loading a performance expectation directly to see ELA and Math connections.",
       items: commonCore.map((item) => ({
         title: `${item.publicId} · ${item.family}`,
         meta: item.text || item.title,
@@ -1541,7 +1547,7 @@ function renderConnectionBoxes() {
 function renderPathSummaries() {
   const node = graphNodeById(state.selectedNodeId);
   if (!node) {
-    $("#path-summaries").innerHTML = '<div class="stack-item empty">No path summaries yet.</div>';
+    $("#path-summaries").innerHTML = '<div class="stack-item empty">No path data is available yet — select a node in the graph to see how it connects back to the seed.</div>';
     return;
   }
   const paths = [];
@@ -1579,7 +1585,7 @@ function renderPathSummaries() {
 function renderProgressionTimeline() {
   const node = graphNodeById(state.selectedNodeId);
   if (!node) {
-    $("#progression-timeline").innerHTML = '<div class="stack-item empty">No progression timeline loaded.</div>';
+    $("#progression-timeline").innerHTML = '<div class="stack-item empty">No progression statements are loaded yet — select a dimension concept node to see how it develops across grade bands.</div>';
     return;
   }
   const progressions = (state.graph?.edges || [])
@@ -1611,7 +1617,7 @@ function renderEvidenceCards() {
   const node = graphNodeById(state.selectedNodeId);
   const context = currentContextForSelectedNode();
   if (!node) {
-    $("#evidence-cards").innerHTML = '<div class="stack-item empty">No evidence loaded yet.</div>';
+    $("#evidence-cards").innerHTML = '<div class="stack-item empty">No evidence is loaded for this node yet — it should appear once you\'ve explored the graph neighborhood.</div>';
     return;
   }
   const cards = [];
@@ -2031,6 +2037,71 @@ function buildSourceDiagram() {
   };
 }
 
+function buildProgressionDiagram() {
+  const { nodes } = filteredGraph();
+  if (!nodes.length) return null;
+
+  const BAND_LABELS = { k_2: "K–2", elementary: "3–5", middle: "Middle School", high: "High School" };
+  const BAND_KEYS = ["k_2", "elementary", "middle", "high"];
+
+  const bandMap = new Map(BAND_KEYS.map((k) => [k, []]));
+  const unbanked = [];
+
+  nodes.forEach((node) => {
+    const band = gradeBandForNode(node);
+    if (band && bandMap.has(band)) {
+      bandMap.get(band).push(node);
+    } else {
+      unbanked.push(node);
+    }
+  });
+
+  // If only one or zero bands have nodes, fall back to putting unbanked nodes in the best-guess band
+  const filledBands = BAND_KEYS.filter((k) => bandMap.get(k).length > 0);
+  if (filledBands.length === 0) {
+    return null;
+  }
+
+  const tokenMap = new Map();
+  let tokenIndex = 0;
+  const allBandNodes = [];
+  filledBands.forEach((band) => allBandNodes.push(...bandMap.get(band).slice(0, 7)));
+  allBandNodes.forEach((node) => tokenMap.set(node.node_id, mermaidToken("pg", tokenIndex++)));
+
+  const lines = ["flowchart LR"];
+  mermaidClassRows(lines);
+
+  filledBands.forEach((band) => {
+    const bandNodes = bandMap.get(band).slice(0, 7);
+    if (!bandNodes.length) return;
+    lines.push(`  subgraph ${band}_group["${BAND_LABELS[band]}"]`);
+    bandNodes.forEach((node) => mermaidNodeRows(node, tokenMap, lines));
+    lines.push("  end");
+  });
+
+  // Show progression and cross-grade edges
+  (state.graph?.edges || []).forEach((edge) => {
+    if (!tokenMap.has(edge.source_id) || !tokenMap.has(edge.target_id)) return;
+    if (
+      edge.edge_type === "DIMENSION_HAS_PROGRESSION" ||
+      edge.edge_type === "TOPIC_ARTICULATES_TO_DCI_ACROSS_GRADES" ||
+      edge.edge_type === "TOPIC_HAS_PE" ||
+      edge.edge_type === "GRADE_HAS_TOPIC"
+    ) {
+      const label = edgeLabelFor(edge.edge_type);
+      lines.push(`  ${tokenMap.get(edge.source_id)} -->|${label}| ${tokenMap.get(edge.target_id)}`);
+    }
+  });
+
+  const selected = graphNodeById(state.selectedNodeId);
+  if (selected && tokenMap.has(selected.node_id)) lines.push(`  class ${tokenMap.get(selected.node_id)} selected;`);
+
+  return {
+    summary: `Grade progression view across ${filledBands.length} grade band${filledBands.length === 1 ? "" : "s"} (${filledBands.map((b) => BAND_LABELS[b]).join(", ")}).`,
+    definition: lines.join("\n"),
+  };
+}
+
 function syncDiagramUi() {
   const diagramView = DIAGRAM_VIEWS[state.diagramView] ? state.diagramView : DEFAULT_WORKSPACE.diagramView;
   const graphViewport = $("#graph-viewport");
@@ -2057,6 +2128,59 @@ function resetMermaidTransform({ persist = true } = {}) {
   if (persist) scheduleWorkspacePersist();
 }
 
+function addMermaidNodeDrag(container) {
+  const svg = container.querySelector("svg");
+  if (!svg) return;
+  const nodeEls = svg.querySelectorAll("g.node");
+  nodeEls.forEach((nodeEl) => {
+    let dragging = false;
+    let startClientX = 0;
+    let startClientY = 0;
+    let baseX = 0;
+    let baseY = 0;
+
+    nodeEl.style.cursor = "grab";
+    nodeEl.setAttribute("pointer-events", "all");
+
+    nodeEl.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("a")) return; // let click-through work for Mermaid links
+      event.stopPropagation(); // prevent canvas pan from starting
+      dragging = true;
+      startClientX = event.clientX;
+      startClientY = event.clientY;
+      const transform = nodeEl.getAttribute("transform") || "";
+      const match = transform.match(/translate\(([^,\s)]+)[,\s]+([^)]+)\)/);
+      baseX = match ? parseFloat(match[1]) : 0;
+      baseY = match ? parseFloat(match[2]) : 0;
+      nodeEl.setPointerCapture(event.pointerId);
+      nodeEl.style.cursor = "grabbing";
+      event.preventDefault();
+    });
+
+    nodeEl.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const scale = state.mermaidTransform.scale || 1;
+      const dx = (event.clientX - startClientX) / scale;
+      const dy = (event.clientY - startClientY) / scale;
+      nodeEl.setAttribute("transform", `translate(${baseX + dx},${baseY + dy})`);
+    });
+
+    const endDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      nodeEl.style.cursor = "grab";
+      try {
+        nodeEl.releasePointerCapture(event.pointerId);
+      } catch (_error) {
+        logDebug("mermaid-drag", "pointer capture release failed", { message: _error?.message });
+      }
+    };
+
+    nodeEl.addEventListener("pointerup", endDrag);
+    nodeEl.addEventListener("pointercancel", endDrag);
+  });
+}
+
 async function renderMermaidDiagram() {
   const container = $("#mermaid-diagram");
   const empty = $("#mermaid-empty");
@@ -2069,11 +2193,13 @@ async function renderMermaidDiagram() {
       ? buildRelationshipDiagram
       : state.diagramView === "paths"
         ? buildPathDiagram
-        : buildSourceDiagram;
+        : state.diagramView === "progression"
+          ? buildProgressionDiagram
+          : buildSourceDiagram;
   const diagram = builder();
   if (!diagram) {
     container.innerHTML = "";
-    empty.textContent = "Choose a node or explore a graph neighborhood to generate this Mermaid view.";
+    empty.textContent = "Select a node in the graph, or explore a neighborhood, to generate this view.";
     empty.style.display = "grid";
     $("#diagram-summary").textContent = (DIAGRAM_VIEWS[state.diagramView] || DIAGRAM_VIEWS.overview).summary;
     logDebug("mermaid", "no diagram available", { view: state.diagramView });
@@ -2082,7 +2208,7 @@ async function renderMermaidDiagram() {
   $("#diagram-summary").textContent = diagram.summary;
   if (!ensureMermaid()) {
     container.innerHTML = "";
-    empty.textContent = "Mermaid could not be loaded, so this view is temporarily unavailable.";
+    empty.textContent = "The diagram library failed to load — try refreshing the page.";
     empty.style.display = "grid";
     return;
   }
@@ -2099,10 +2225,11 @@ async function renderMermaidDiagram() {
     if (nonce !== state.mermaidRenderNonce) return;
     container.innerHTML = svg;
     bindFunctions?.(container);
+    addMermaidNodeDrag(container);
     applyMermaidTransform();
   } catch (_error) {
     container.innerHTML = "";
-    empty.textContent = "This Mermaid view could not be rendered for the current selection.";
+    empty.textContent = "This view couldn't be rendered for the current selection — try switching to a different view or selecting a different node.";
     empty.style.display = "grid";
   }
 }
@@ -2148,16 +2275,33 @@ function viewportPoint(event) {
   const svg = $("#graph-svg");
   const rect = svg.getBoundingClientRect();
   return {
-    x: ((event.clientX - rect.left) / rect.width) * 1000,
-    y: ((event.clientY - rect.top) / rect.height) * 640,
+    x: ((event.clientX - rect.left) / rect.width) * SVG_WIDTH,
+    y: ((event.clientY - rect.top) / rect.height) * SVG_HEIGHT,
   };
 }
 
 function centerGraphOn(nodeId) {
   const position = state.graphPositions.get(nodeId);
   if (!position) return;
-  state.graphTransform.x = 500 - position.x * state.graphTransform.scale;
-  state.graphTransform.y = 320 - position.y * state.graphTransform.scale;
+  state.graphTransform.x = SVG_WIDTH / 2 - position.x * state.graphTransform.scale;
+  state.graphTransform.y = SVG_HEIGHT / 2 - position.y * state.graphTransform.scale;
+  applyGraphTransform();
+}
+
+function fitAllNodes() {
+  if (!state.graphPositions.size) return;
+  const positions = [...state.graphPositions.values()];
+  const minX = Math.min(...positions.map((p) => p.x));
+  const maxX = Math.max(...positions.map((p) => p.x));
+  const minY = Math.min(...positions.map((p) => p.y));
+  const maxY = Math.max(...positions.map((p) => p.y));
+  const padding = 100;
+  const contentW = maxX - minX + padding * 2;
+  const contentH = maxY - minY + padding * 2;
+  const scale = Math.min(SVG_WIDTH / contentW, SVG_HEIGHT / contentH, 1.0);
+  state.graphTransform.x = SVG_WIDTH / 2 - ((minX + maxX) / 2) * scale;
+  state.graphTransform.y = SVG_HEIGHT / 2 - ((minY + maxY) / 2) * scale;
+  state.graphTransform.scale = Math.max(0.15, Math.min(scale, 3.0));
   applyGraphTransform();
 }
 
@@ -2186,39 +2330,90 @@ function renderFilterChips() {
     .join("");
 }
 
+function gradeBandForNode(node) {
+  const publicId = publicIdFor(node);
+  const gradeLabel = (node.payload?.grade_label || node.payload?.grade_id || "").toLowerCase();
+  if (/^K-/i.test(publicId) || gradeLabel.includes("k-2") || gradeLabel.includes("k–2") || gradeLabel.includes("primary")) return "k_2";
+  // Match elementary grades: must be a single digit 1–5 followed by a hyphen and a known prefix pattern
+  if (/^[1-5]-[A-Z]/i.test(publicId) || gradeLabel.includes("3-5") || gradeLabel.includes("3–5") || gradeLabel.includes("elementary")) return "elementary";
+  if (/^MS-/i.test(publicId) || gradeLabel.includes("middle")) return "middle";
+  if (/^HS-/i.test(publicId) || gradeLabel.includes("high")) return "high";
+  return null;
+}
+
 function computeGraphLayout(nodes) {
-  const centerX = 500;
-  const centerY = 320;
+  const centerX = SVG_WIDTH / 2;
+  const centerY = SVG_HEIGHT / 2;
   const positions = new Map();
-  const radiusBase = 115;
   const seedNodeIds = state.graph?.seed_node_ids || (state.graph?.seed ? [state.graph.seed] : []);
-  const sorted = [...nodes].sort((left, right) => (left.distance || 0) - (right.distance || 0));
-  sorted.forEach((node, index) => {
-    const seedIndex = seedNodeIds.indexOf(node.node_id);
-    if (seedIndex >= 0) {
-      if (seedNodeIds.length === 1) {
-        positions.set(node.node_id, { x: centerX, y: centerY });
-      } else {
-        const angle = (Math.PI * 2 * seedIndex) / seedNodeIds.length;
-        positions.set(node.node_id, {
-          x: centerX + Math.cos(angle) * 82,
-          y: centerY + Math.sin(angle) * 82,
-        });
-      }
-      return;
-    }
-    const distance = Math.max(1, Number(node.distance || 1));
-    const angle = (Math.PI * 2 * index) / Math.max(1, sorted.length - 1);
-    const radius = radiusBase + distance * 95;
-    positions.set(node.node_id, {
-      x: centerX + Math.cos(angle) * radius,
-      y: centerY + Math.sin(angle) * radius,
+  const seedCount = seedNodeIds.length;
+
+  // Place seeds spread across the canvas based on count
+  const seedSpreadRadius = seedCount <= 1 ? 0 : Math.max(220, seedCount * 100);
+  seedNodeIds.forEach((seedId, seedIndex) => {
+    const angle = seedCount === 1 ? 0 : (Math.PI * 2 * seedIndex) / seedCount - Math.PI / 2;
+    positions.set(seedId, {
+      x: centerX + Math.cos(angle) * seedSpreadRadius,
+      y: centerY + Math.sin(angle) * seedSpreadRadius,
     });
   });
 
+  // For each non-seed node, determine which seed it primarily belongs to via path_from_seed
+  const seedIndexMap = new Map(seedNodeIds.map((id, idx) => [id, idx]));
+  const nonSeedNodes = nodes.filter((n) => !seedIndexMap.has(n.node_id));
+
+  // Group nodes by their primary seed
+  const nodesBySeed = new Map(seedNodeIds.map((id) => [id, []]));
+  const unassigned = [];
+  nonSeedNodes.forEach((node) => {
+    const primarySeedId = node.path_from_seed?.find((id) => seedIndexMap.has(id));
+    if (primarySeedId && nodesBySeed.has(primarySeedId)) {
+      nodesBySeed.get(primarySeedId).push(node);
+    } else {
+      unassigned.push(node);
+    }
+  });
+  // Assign unassigned nodes to first seed
+  unassigned.forEach((node) => {
+    const firstSeed = seedNodeIds[0];
+    if (firstSeed) nodesBySeed.get(firstSeed).push(node);
+  });
+
+  // Place each seed's neighborhood in a fan around that seed
+  seedNodeIds.forEach((seedId, seedIndex) => {
+    const seedPos = positions.get(seedId) || { x: centerX, y: centerY };
+    const seedAngle = seedCount === 1 ? 0 : (Math.PI * 2 * seedIndex) / seedCount - Math.PI / 2;
+    const neighborFanAngle = seedCount === 1 ? Math.PI * 2 : Math.PI * 1.3;
+    const fanStart = seedAngle - neighborFanAngle / 2;
+    const seedNeighbors = nodesBySeed.get(seedId) || [];
+    const byDistance = new Map();
+    seedNeighbors.forEach((node) => {
+      const d = node.distance || 1;
+      if (!byDistance.has(d)) byDistance.set(d, []);
+      byDistance.get(d).push(node);
+    });
+    byDistance.forEach((nodesAtDist, dist) => {
+      const ringRadius = 180 + dist * 150;
+      const ringCount = nodesAtDist.length;
+      nodesAtDist.forEach((node, i) => {
+        const spread = ringCount === 1 ? 0 : (neighborFanAngle * i) / (ringCount - 1);
+        const angle = fanStart + spread;
+        positions.set(node.node_id, {
+          x: seedPos.x + Math.cos(angle) * ringRadius,
+          y: seedPos.y + Math.sin(angle) * ringRadius,
+        });
+      });
+    });
+  });
+
+  // Force-directed refinement for better separation
   const nodeIndex = new Map(nodes.map((node) => [node.node_id, node]));
   const edges = state.graph?.edges || [];
-  for (let iteration = 0; iteration < 220; iteration += 1) {
+  const REPULSION = 42000;
+  const SPRING_BASE = 180;
+  const SPRING_PER_DIST = 55;
+
+  for (let iteration = 0; iteration < 280; iteration += 1) {
     const forces = new Map(nodes.map((node) => [node.node_id, { x: 0, y: 0 }]));
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {
@@ -2227,7 +2422,7 @@ function computeGraphLayout(nodes) {
         const dx = right.x - left.x;
         const dy = right.y - left.y;
         const distanceSq = Math.max(dx * dx + dy * dy, 1);
-        const force = 12000 / distanceSq;
+        const force = REPULSION / distanceSq;
         const distance = Math.sqrt(distanceSq);
         const ux = dx / distance;
         const uy = dy / distance;
@@ -2244,8 +2439,8 @@ function computeGraphLayout(nodes) {
       const dx = target.x - source.x;
       const dy = target.y - source.y;
       const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-      const desired = 95 + ((nodeIndex.get(edge.source_id)?.distance || 0) + (nodeIndex.get(edge.target_id)?.distance || 0)) * 28;
-      const force = (distance - desired) * 0.016;
+      const desired = SPRING_BASE + ((nodeIndex.get(edge.source_id)?.distance || 0) + (nodeIndex.get(edge.target_id)?.distance || 0)) * SPRING_PER_DIST;
+      const force = (distance - desired) * 0.018;
       const ux = dx / distance;
       const uy = dy / distance;
       forces.get(edge.source_id).x += ux * force;
@@ -2256,17 +2451,17 @@ function computeGraphLayout(nodes) {
     for (const node of nodes) {
       const position = positions.get(node.node_id);
       const force = forces.get(node.node_id);
-      const seedIndex = seedNodeIds.indexOf(node.node_id);
-      if (seedIndex >= 0) {
-        const angle = seedNodeIds.length === 1 ? 0 : (Math.PI * 2 * seedIndex) / seedNodeIds.length;
-        const anchorX = seedNodeIds.length === 1 ? centerX : centerX + Math.cos(angle) * 82;
-        const anchorY = seedNodeIds.length === 1 ? centerY : centerY + Math.sin(angle) * 82;
-        position.x += (anchorX - position.x) * 0.08;
-        position.y += (anchorY - position.y) * 0.08;
+      const seedIndex = seedIndexMap.get(node.node_id);
+      if (seedIndex !== undefined) {
+        const angle = seedCount === 1 ? 0 : (Math.PI * 2 * seedIndex) / seedCount - Math.PI / 2;
+        const anchorX = seedCount === 1 ? centerX : centerX + Math.cos(angle) * seedSpreadRadius;
+        const anchorY = seedCount === 1 ? centerY : centerY + Math.sin(angle) * seedSpreadRadius;
+        position.x += (anchorX - position.x) * 0.07;
+        position.y += (anchorY - position.y) * 0.07;
         continue;
       }
-      position.x = Math.min(940, Math.max(60, position.x + force.x));
-      position.y = Math.min(580, Math.max(60, position.y + force.y));
+      position.x = Math.min(SVG_WIDTH - 80, Math.max(80, position.x + force.x));
+      position.y = Math.min(SVG_HEIGHT - 80, Math.max(80, position.y + force.y));
     }
   }
   return positions;
@@ -2312,7 +2507,7 @@ function renderGraphScene() {
   const { nodes: visibleNodes, edges: visibleEdges } = filteredGraph();
   if (!nodes.length) {
     $("#graph-empty").style.display = "grid";
-    $("#graph-summary").textContent = "No graph loaded.";
+    $("#graph-summary").textContent = `Pick a seed and click 'Explore group' to load the graph.`;
     return;
   }
 
@@ -2409,7 +2604,7 @@ function renderGraph(neighborhood, options = {}) {
   const nodes = neighborhood.nodes || [];
   if (!nodes.length) {
     $("#graph-empty").style.display = "grid";
-    $("#graph-summary").textContent = "No graph loaded.";
+    $("#graph-summary").textContent = `Pick a seed and click 'Explore group' to load the graph.`;
     return;
   }
   const defaultNodeTypes = ["pe", "topic", "concept", "other"];
@@ -2420,12 +2615,17 @@ function renderGraph(neighborhood, options = {}) {
     ? {
         x: Number(options.transform.x) || 0,
         y: Number(options.transform.y) || 0,
-        scale: clampNumber(options.transform.scale, 1, 0.55, 2.2),
+        scale: clampNumber(options.transform.scale, 1, 0.15, 3.0),
       }
     : { x: 0, y: 0, scale: 1 };
   state.graphFilters.nodeTypes = new Set(restoredNodeTypes.length ? restoredNodeTypes : defaultNodeTypes);
   state.graphFilters.edgeTypes = new Set(restoredEdgeTypes.length ? restoredEdgeTypes : availableEdgeTypes);
-  state.graphPositions = restoredGraphPositions(options, neighborhood) || computeGraphLayout(nodes);
+  const restoredPositions = restoredGraphPositions(options, neighborhood);
+  state.graphPositions = restoredPositions || computeGraphLayout(nodes);
+  if (!restoredPositions && !options.transform) {
+    // Auto-fit when loading a fresh layout
+    requestAnimationFrame(() => fitAllNodes());
+  }
   renderFilterChips();
   renderVisualizationStage();
   const selectedNodeId =
@@ -2491,7 +2691,7 @@ async function inspectGroup(identifiers, hops = Number($("#inspect-hops").value 
   state.currentInspectId = seeds[0];
   state.currentInspectHops = hops;
   $("#inspect-hops").value = String(hops);
-  $("#node-details").innerHTML = '<div class="detail-card empty">Loading node details…</div>';
+  $("#node-details").innerHTML = '<div class="detail-card empty">Loading — hang tight…</div>';
   renderGroupOverview();
   logDebug("inspect-group", "loading neighborhoods", { seeds, hops });
   const responses = await Promise.all(
@@ -2545,7 +2745,7 @@ async function runSearch(event) {
   const selected = itemByPublicId(selectedPublicId);
   if (!selected) return;
   logDebug("search", "running", { selectedPublicId, limit });
-  $("#search-results").innerHTML = '<div class="stack-item empty">Searching…</div>';
+  $("#search-results").innerHTML = '<div class="stack-item empty">Looking for related items…</div>';
   const data = await api("/search", {
     method: "POST",
     body: JSON.stringify({ query: selected.public_id, limit }),
@@ -2557,7 +2757,7 @@ async function runSearch(event) {
   });
   $("#search-results").innerHTML = results.length
     ? results.map((item) => renderStackItem(item, { showGraph: true })).join("")
-    : '<div class="stack-item empty">No results found.</div>';
+    : '<div class="stack-item empty">No matching items were found. Try a different category or item.</div>';
 }
 
 async function runAnswer(event) {
@@ -2577,7 +2777,7 @@ async function runAnswer(event) {
   }
   const query = template.build({ primary, secondary });
   logDebug("answer", "running", { templateKey, query, limit, expand_hops });
-  $("#answer-output").textContent = "Generating answer…";
+  $("#answer-output").textContent = "Pulling together an answer from the graph and source data — this usually takes a moment…";
   $("#answer-citations").innerHTML = "";
   $("#answer-nodes").innerHTML = '<div class="stack-item empty">Loading retrieval metadata…</div>';
   const data = await api("/answer", {
@@ -2594,7 +2794,7 @@ async function runAnswer(event) {
     .join("");
   $("#answer-nodes").innerHTML = (data.retrieved_nodes || []).length
     ? data.retrieved_nodes.slice(0, 10).map((item) => renderStackItem(item, { showGraph: true })).join("")
-    : '<div class="stack-item empty">No retrieval metadata returned.</div>';
+    : '<div class="stack-item empty">No retrieval metadata came back for this query.</div>';
 }
 
 async function rebuildIndex() {
@@ -2633,8 +2833,8 @@ function handlePointerMove(event) {
   if (state.panDrag) {
     const dx = event.clientX - state.panDrag.startX;
     const dy = event.clientY - state.panDrag.startY;
-    state.graphTransform.x = state.panDrag.originX + (dx / $("#graph-svg").clientWidth) * 1000;
-    state.graphTransform.y = state.panDrag.originY + (dy / $("#graph-svg").clientHeight) * 640;
+    state.graphTransform.x = state.panDrag.originX + (dx / $("#graph-svg").clientWidth) * SVG_WIDTH;
+    state.graphTransform.y = state.panDrag.originY + (dy / $("#graph-svg").clientHeight) * SVG_HEIGHT;
     applyGraphTransform();
   }
 }
@@ -2662,10 +2862,10 @@ function endPointerInteraction(event) {
 
 function adjustCanvasZoom(delta) {
   if (state.diagramView === "graph") {
-    state.graphTransform.scale = Math.max(0.55, Math.min(2.2, state.graphTransform.scale + delta));
+    state.graphTransform.scale = Math.max(0.15, Math.min(3.0, state.graphTransform.scale + delta));
     applyGraphTransform();
   } else {
-    state.mermaidTransform.scale = Math.max(0.35, Math.min(3, state.mermaidTransform.scale + delta));
+    state.mermaidTransform.scale = Math.max(0.2, Math.min(4.0, state.mermaidTransform.scale + delta));
     applyMermaidTransform();
   }
   scheduleWorkspacePersist();
@@ -2674,8 +2874,11 @@ function adjustCanvasZoom(delta) {
 function fitCanvasToSelection() {
   if (state.diagramView === "graph") {
     const focusNodeId = state.selectedNodeId || state.graph?.seed;
-    if (!focusNodeId) return;
-    centerGraphOn(focusNodeId);
+    if (focusNodeId) {
+      centerGraphOn(focusNodeId);
+    } else {
+      fitAllNodes();
+    }
   } else {
     resetMermaidTransform({ persist: false });
   }
@@ -2742,7 +2945,7 @@ function wireViewportInteractions() {
     (event) => {
       event.preventDefault();
       const direction = event.deltaY > 0 ? -0.08 : 0.08;
-      state.graphTransform.scale = Math.max(0.55, Math.min(2.2, state.graphTransform.scale + direction));
+      state.graphTransform.scale = Math.max(0.15, Math.min(3.0, state.graphTransform.scale + direction));
       applyGraphTransform();
       scheduleWorkspacePersist();
     },
@@ -2777,7 +2980,7 @@ function wireGraphControls() {
     }
     replaceActiveSeeds(selectedPublicId);
     setCurrentStep("choose", { persist: false });
-    showToast(`${selectedPublicId} is now the only active seed.`);
+    showToast(`Switched to ${selectedPublicId} as the only active seed.`);
   });
   $("#inspect-submit").addEventListener("click", async () => {
     try {
@@ -2801,8 +3004,7 @@ function wireGraphControls() {
       else if (action === "fit-selection") fitCanvasToSelection();
       else if (action === "reset") {
         if (state.diagramView === "graph") {
-          state.graphTransform = { x: 0, y: 0, scale: 1 };
-          applyGraphTransform();
+          fitAllNodes();
           scheduleWorkspacePersist();
         } else {
           resetMermaidTransform();
@@ -2888,10 +3090,10 @@ function wireForms() {
     persistWorkspaceState();
     try {
       await navigator.clipboard.writeText(window.location.href);
-      setWorkspaceStatus("Current view link copied. It opens to the same graph seed, selection, and mode.");
+      setWorkspaceStatus("Link copied! Anyone you share it with will open the same graph seed, selection, and view mode.");
       showToast("View link copied.");
     } catch (_error) {
-      setWorkspaceStatus("Clipboard access is unavailable here. Use the URL in the address bar to share the current view.");
+      setWorkspaceStatus("Clipboard access isn't available here. Copy the URL from the address bar to share your current view.");
       showToast("Clipboard unavailable.", true);
     }
   });
@@ -2923,7 +3125,7 @@ function wireForms() {
       button.classList.toggle("active", button.dataset.diagramView === DEFAULT_WORKSPACE.diagramView);
     });
     setCurrentStep(DEFAULT_WORKSPACE.currentStep, { persist: false });
-    setWorkspaceStatus("Workspace reset. Default graph view restored.");
+    setWorkspaceStatus("Workspace reset. You're back to the default view.");
     try {
       await inspectGroup(DEFAULT_WORKSPACE.inspectIds, DEFAULT_WORKSPACE.inspectHops, { persist: false });
       persistWorkspaceState();
@@ -2943,7 +3145,7 @@ function configureRuntimeUi() {
   }
   const status = $("#workspace-status");
   if (status) {
-    status.textContent = "Static Pages mode is active. Browsing, graph exploration, and lightweight local search work from the bundled dataset.";
+    status.textContent = "Running in static Pages mode — browsing, graph exploration, and local search all work from the bundled dataset.";
   }
 }
 
@@ -3001,7 +3203,7 @@ function wireDelegatedActions() {
       const identifier = addSeedButton.getAttribute("data-add-seed");
       setActiveSeeds([...state.currentInspectIds, identifier]);
       setCurrentStep("choose", { persist: false });
-      showToast(`${identifier} added to the active group.`);
+      showToast(`${identifier} added to the group — click "Explore group" to reload.`);
       return;
     }
 
@@ -3094,10 +3296,10 @@ async function bootstrap() {
   setCurrentStep(state.currentStep, { persist: false });
   setWorkspaceStatus(
     restored.source === "shared"
-      ? "Loaded a shared workspace view from the URL."
+      ? "Loaded a shared workspace from the URL — you're looking at someone else's saved view."
         : restored.source === "stored"
-          ? "Restored your last workspace context and synced it with the current URL."
-        : "Workspace autosaves locally and syncs the current view into the URL.",
+          ? "Picked up where you left off. Your last workspace context has been restored."
+        : "Your workspace is automatically saved as you explore. The URL always reflects your current view.",
   );
   try {
     await inspectGroup(state.currentInspectIds, restored.inspectHops, {
