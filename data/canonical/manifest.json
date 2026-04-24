@@ -1,11 +1,11 @@
 {
   "counts": {
-    "aliases": 1876,
-    "chunks": 339,
-    "concepts": 70,
+    "aliases": 1865,
+    "chunks": 336,
+    "concepts": 67,
     "edges": 6214,
     "grades": 10,
-    "nodes": 4448,
+    "nodes": 4445,
     "performance_expectations": 208,
     "source_files": [
       "ngss3DElements.json",

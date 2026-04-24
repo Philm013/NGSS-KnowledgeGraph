@@ -3151,22 +3151,22 @@
       "target_public_id": "LS1.D"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "1-LS1-2",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Scientists look for patterns and order when making observations about the world."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         12
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -3304,26 +3304,7 @@
         11
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "1-PS4-1",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Investigations Use a Variety of Methods",
-        "Science investigations begin with a question.",
-        "Scientists use different ways to study the world."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngssK5.json",
-      "source_pages": [
-        11
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -3361,6 +3342,25 @@
       "target_public_id": "PS4.A"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "1-PS4-1",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Investigations Use a Variety of Methods",
+        "Science investigations begin with a question.",
+        "Scientists use different ways to study the world."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngssK5.json",
+      "source_pages": [
+        11
+      ],
+      "target_family": "CNS",
+      "target_public_id": "VOM"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
@@ -3375,7 +3375,7 @@
         11
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -3427,7 +3427,7 @@
         11
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -3570,6 +3570,24 @@
       "target_public_id": "SC"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "2-ESS2-1",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science Addresses Questions About the Natural and Material World",
+        "Scientists study the natural and material world."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngssK5.json",
+      "source_pages": [
+        20
+      ],
+      "target_family": "CNS",
+      "target_public_id": "AQAW"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
@@ -3586,24 +3604,6 @@
       ],
       "target_family": "SEP",
       "target_public_id": "CEDS"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "2-ESS2-1",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science Addresses Questions About the Natural and Material World",
-        "Scientists study the natural and material world."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngssK5.json",
-      "source_pages": [
-        20
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
     },
     {
       "confidence": 1.0,
@@ -3793,7 +3793,7 @@
         17
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -3900,22 +3900,22 @@
       "target_public_id": "MOD"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "2-LS4-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Scientists look for patterns and order when making observations about the world."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         18
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -4019,7 +4019,7 @@
         16
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -4092,9 +4092,9 @@
       "target_public_id": "CEDS"
     },
     {
-      "confidence": 0.5,
+      "confidence": 0.98,
       "family_hint": "CCC",
-      "mapping_method": "fallback",
+      "mapping_method": "normalized-id",
       "pe_id": "2-PS1-3",
       "raw_id": "Energy and Matter",
       "raw_texts": [
@@ -4106,7 +4106,7 @@
         16
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -4159,25 +4159,25 @@
         16
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "2-PS1-4",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "Science searches for cause and effect relationships to explain natural events."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         16
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "ENP"
     },
     {
       "confidence": 1.0,
@@ -4490,25 +4490,7 @@
         29
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "3-ESS3-1",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science is a Human Endeavor",
-        "Science affects everyday life."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngssK5.json",
-      "source_pages": [
-        29
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -4532,6 +4514,24 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "3-ESS3-1",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science is a Human Endeavor",
+        "Science affects everyday life."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngssK5.json",
+      "source_pages": [
+        29
+      ],
+      "target_family": "CNS",
+      "target_public_id": "HE"
+    },
+    {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "3-ESS3-1",
       "raw_id": "Connections to Engineering, Technology, and Applications of Science",
       "raw_texts": [
         "Influence of Science, Engineering, and Technology on Society and the Natural World",
@@ -4546,22 +4546,22 @@
       "target_public_id": "INFLU"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "3-LS1-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science findings are based on recognizing patterns."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         24
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 1.0,
@@ -4648,7 +4648,7 @@
         25
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -4751,7 +4751,7 @@
         26
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -4890,7 +4890,7 @@
         27
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -4960,7 +4960,7 @@
         27
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -5081,25 +5081,7 @@
         23
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "3-PS2-1",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Investigations Use a Variety of Methods",
-        "Science investigations use a variety of methods, tools, and techniques."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngssK5.json",
-      "source_pages": [
-        23
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -5154,22 +5136,40 @@
       "target_public_id": "PS2.B"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "3-PS2-2",
+      "mapping_method": "normalized-text",
+      "pe_id": "3-PS2-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
-        "Science Knowledge is Based on Empirical Evidence",
-        "Science findings are based on recognizing patterns."
+        "Scientific Investigations Use a Variety of Methods",
+        "Science investigations use a variety of methods, tools, and techniques."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         23
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "VOM"
+    },
+    {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "3-PS2-2",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Knowledge Is Based on Empirical Evidence",
+        "Science findings are based on recognizing patterns."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngssK5.json",
+      "source_pages": [
+        23
+      ],
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -5256,7 +5256,7 @@
         23
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -5412,7 +5412,7 @@
         35
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -5533,7 +5533,7 @@
         36
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -5605,7 +5605,7 @@
         36
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -5814,7 +5814,7 @@
         31
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -5848,7 +5848,7 @@
         31
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.98,
@@ -5937,7 +5937,7 @@
         31
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -6013,25 +6013,6 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
       "pe_id": "4-PS3-4",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science is a Human Endeavor",
-        "Most scientists and engineers work in teams.",
-        "Science affects everyday life."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngssK5.json",
-      "source_pages": [
-        31
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "4-PS3-4",
       "raw_id": "Energy and Matter",
       "raw_texts": [
         "Energy can be transferred in various ways and between objects."
@@ -6042,7 +6023,7 @@
         31
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -6060,6 +6041,25 @@
       ],
       "target_family": "DCI",
       "target_public_id": "ETS1.A"
+    },
+    {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "4-PS3-4",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science is a Human Endeavor",
+        "Most scientists and engineers work in teams.",
+        "Science affects everyday life."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngssK5.json",
+      "source_pages": [
+        31
+      ],
+      "target_family": "CNS",
+      "target_public_id": "HE"
     },
     {
       "confidence": 0.92,
@@ -6198,7 +6198,7 @@
         32
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -6632,7 +6632,7 @@
         41
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -6652,22 +6652,22 @@
       "target_public_id": "LS1.C"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "5-LS2-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "Science explanations describe the mechanisms for natural events."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         42
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "ENP"
     },
     {
       "confidence": 1.0,
@@ -6943,7 +6943,7 @@
         38
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -7013,7 +7013,7 @@
         39
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -7047,7 +7047,7 @@
         40
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -7175,7 +7175,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS1-2",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Scientific knowledge is based on the assumption that natural laws operate today as they did in the past and they will continue to do so in the future.",
@@ -7240,14 +7240,14 @@
         2
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.92,
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS1-2",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "A scientific theory is a substantiated explanation of some aspect of the natural world, based on a body of facts that have been repeatedly confirmed through observation and experiment and the science community validates each theory before it is accepted. If new evidence is discovered that the theory does not accommodate, the theory is generally modified in light of this new evidence."
@@ -7311,7 +7311,7 @@
         4
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -7528,7 +7528,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS1-6",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "A scientific theory is a substantiated explanation of some aspect of the natural world, based on a body of facts that have been repeatedly confirmed through observation and experiment, and the science community validates each theory before it is accepted. If new evidence is discovered that the theory does not accommodate, the theory is generally modified in light of this new evidence.",
@@ -7754,7 +7754,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS2-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based on empirical evidence.",
@@ -7802,7 +7802,7 @@
         15
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -7861,7 +7861,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS2-4",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science arguments are strengthened by multiple lines of evidence supporting a single explanation."
@@ -7889,7 +7889,7 @@
         17
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -8027,7 +8027,7 @@
         21
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -8149,7 +8149,7 @@
         24
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -8226,7 +8226,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS3-2",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Addresses Questions About the Natural and Material World",
         "Science and technology may raise ethical issues for which science, by itself, does not provide answers and solutions.",
@@ -8353,7 +8353,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS3-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science is a Human Endeavor",
         "Science is a result of human endeavors, imagination, and creativity."
@@ -8545,7 +8545,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-ESS3-5",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Investigations Use a Variety of Methods",
         "Science investigations use diverse methods and do not always use the same set of procedures to obtain data.",
@@ -8987,7 +8987,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS1-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Investigations Use a Variety of Methods",
         "Scientific inquiry is characterized by a common set of values that include: logical thinking, precision, open-mindedness, objectivity, skepticism, replicability of results, and honest and ethical reporting of findings."
@@ -9067,7 +9067,7 @@
         6
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -9137,7 +9137,7 @@
         7
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -9172,7 +9172,7 @@
         9
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -9319,7 +9319,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS2-2",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Open to Revision in Light of New Evidence",
         "Most scientific knowledge is quite durable, but is, in principle, subject to change based on new evidence and/or reinterpretation of existing evidence."
@@ -9382,7 +9382,7 @@
         15
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -9406,7 +9406,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS2-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Open to Revision in Light of New Evidence",
         "Most scientific knowledge is quite durable, but is, in principle, subject to change based on new evidence and/or reinterpretation of existing evidence."
@@ -9434,7 +9434,7 @@
         17
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -9580,7 +9580,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS2-6",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Open to Revision in Light of New Evidence",
         "Scientific argumentation is a mode of logical discourse used to clarify the strength of relationships between ideas and evidence that may result in revision of an explanation."
@@ -9730,7 +9730,7 @@
         24
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -9754,7 +9754,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS2-8",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Open to Revision in Light of New Evidence",
         "Scientific argumentation is a mode of logical discourse used to clarify the strength of relationships between ideas and evidence that may result in revision of an explanation."
@@ -9800,7 +9800,7 @@
         26
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -9869,7 +9869,7 @@
         27
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -9912,7 +9912,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS3-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science is a Human Endeavor",
         "Technological advances have influenced the progress of science and science has influenced advances in technology.",
@@ -9965,7 +9965,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS4-1",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Scientific knowledge is based on the assumption that natural laws operate today as they did in the past and they will continue to do so in the future."
@@ -9983,7 +9983,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS4-1",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "A scientific theory is a substantiated explanation of some aspect of the natural world, based on a body of facts that have been repeatedly confirmed through observation and experiment and the science community validates each theory before it is accepted. If new evidence is discovered that the theory does not accommodate, the theory is generally modified in light of this new evidence."
@@ -10063,7 +10063,7 @@
         32
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -10193,7 +10193,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-LS4-4",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Scientific knowledge is based on the assumption that natural laws operate today as they did in the past and they will continue to do so in the future."
@@ -10221,7 +10221,7 @@
         36
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -10291,7 +10291,7 @@
         38
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -10326,7 +10326,7 @@
         40
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -10587,7 +10587,7 @@
         7
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.98,
@@ -10767,7 +10767,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-PS1-7",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes the universe is a vast single system in which basic laws are consistent."
@@ -10795,7 +10795,7 @@
         12
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.98,
@@ -10847,7 +10847,7 @@
         14
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.98,
@@ -10899,7 +10899,7 @@
         16
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -10924,7 +10924,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-PS2-1",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "Theories and laws provide explanations in science.",
@@ -11023,7 +11023,7 @@
         18
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -11099,7 +11099,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-PS2-4",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "Theories and laws provide explanations in science.",
@@ -11181,7 +11181,7 @@
         22
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -11293,7 +11293,7 @@
       "family_hint": "CCC",
       "mapping_method": "normalized-text",
       "pe_id": "HS-PS3-1",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes the universe is a vast single system in which basic laws are consistent."
@@ -11392,7 +11392,7 @@
         28
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 0.98,
@@ -11482,7 +11482,7 @@
         30
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -11620,7 +11620,7 @@
         34
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -11672,7 +11672,7 @@
         35
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -11803,7 +11803,7 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-text",
       "pe_id": "HS-PS4-3",
-      "raw_id": "Connections to Nature of Science",
+      "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
         "A scientific theory is a substantiated explanation of some aspect of the natural world, based on a body of facts that have been repeatedly confirmed through observation and experiment, and the science community validates each theory before it is accepted. If new evidence is discovered that the theory does not accommodate, the theory is generally modified in light of this new evidence."
@@ -11882,7 +11882,7 @@
         39
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -11934,7 +11934,7 @@
         40
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -12168,22 +12168,22 @@
       "target_public_id": "ETS1.C"
     },
     {
-      "confidence": 0.5,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "fallback",
+      "mapping_method": "normalized-text",
       "pe_id": "K-ESS2-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
-        "Science Knowledge is Based on Empirical Evidence",
+        "Scientific Knowledge Is Based on Empirical Evidence",
         "Scientists look for patterns and order when making observations about the world."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngssK5.json",
       "source_pages": [
         8
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -12391,7 +12391,7 @@
         9
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -12478,7 +12478,7 @@
         9
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -12603,9 +12603,9 @@
       "target_public_id": "PAT"
     },
     {
-      "confidence": 0.5,
+      "confidence": 0.98,
       "family_hint": "CCC",
-      "mapping_method": "fallback",
+      "mapping_method": "normalized-id",
       "pe_id": "K-PS2-1",
       "raw_id": "Cause and Effect",
       "raw_texts": [
@@ -12617,7 +12617,7 @@
         5
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -12722,7 +12722,7 @@
         5
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -12792,7 +12792,7 @@
         6
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -12862,7 +12862,7 @@
         6
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -12900,22 +12900,22 @@
       "target_public_id": "PS3.B"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-ESS1-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         67
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "AOC"
     },
     {
       "confidence": 1.0,
@@ -12987,22 +12987,22 @@
       "target_public_id": "PAT"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-ESS1-2",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         67
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "AOC"
     },
     {
       "confidence": 1.0,
@@ -13322,24 +13322,6 @@
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
       "pe_id": "MS-ESS2-3",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Knowledge is Open to Revision in Light of New Evidence",
-        "Science findings are frequently revised and/or reinterpreted based on new evidence."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        69
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-ESS2-3",
       "raw_id": "Analyzing and Interpreting Data",
       "raw_texts": [
         "Analyzing data in 6\u20138 builds on K\u20135 experiences and progresses to extending quantitative analysis to investigations, distinguishing between correlation and causation, and basic statistical techniques of data and error analysis.",
@@ -13388,6 +13370,24 @@
       "target_public_id": "ESS2.B"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-ESS2-3",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Knowledge is Open to Revision in Light of New Evidence",
+        "Science findings are frequently revised and/or reinterpreted based on new evidence."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        69
+      ],
+      "target_family": "CNS",
+      "target_public_id": "OTR"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
@@ -13419,7 +13419,7 @@
         69
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -13472,7 +13472,7 @@
         69
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -13611,7 +13611,7 @@
         71
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -13751,7 +13751,7 @@
         71
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -13808,6 +13808,24 @@
       "target_public_id": "ESS3.C"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-ESS3-4",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science Addresses Questions About the Natural and Material World",
+        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        71
+      ],
+      "target_family": "CNS",
+      "target_public_id": "AQAW"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
@@ -13840,7 +13858,7 @@
         71
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -13859,24 +13877,6 @@
       ],
       "target_family": "CCC",
       "target_public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-ESS3-4",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science Addresses Questions About the Natural and Material World",
-        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        71
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
     },
     {
       "confidence": 1.0,
@@ -14288,23 +14288,23 @@
       "target_public_id": "ARG"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-LS1-3",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science is a Human Endeavor",
         "Scientists and engineers are guided by habits of mind such as intellectual honesty, tolerance of ambiguity, skepticism, and openness to new ideas."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         4,
         5
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "HE"
     },
     {
       "confidence": 1.0,
@@ -14377,7 +14377,7 @@
         7
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -14431,7 +14431,7 @@
         9
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -14471,6 +14471,25 @@
       "target_public_id": "LS1.B"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-LS1-6",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Knowledge is Based on Empirical Evidence",
+        "Science knowledge is based upon logical connections between evidence and explanations."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        10,
+        11
+      ],
+      "target_family": "CNS",
+      "target_public_id": "BEE"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
@@ -14491,25 +14510,6 @@
     },
     {
       "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-LS1-6",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Knowledge is Based on Empirical Evidence",
-        "Science knowledge is based upon logical connections between evidence and explanations."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        10,
-        11
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
       "pe_id": "MS-LS1-6",
@@ -14524,7 +14524,7 @@
         11
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -14577,7 +14577,7 @@
         12
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -14646,7 +14646,7 @@
         13
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -14698,7 +14698,7 @@
         14
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -14825,23 +14825,23 @@
       "target_public_id": "PAT"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-LS2-3",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         17,
         18
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "AOC"
     },
     {
       "confidence": 0.98,
@@ -14859,7 +14859,7 @@
         18
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -14918,23 +14918,23 @@
       "target_public_id": "ARG"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-LS2-4",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science disciplines share common rules of obtaining and evaluating empirical evidence."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         19,
         20
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 1.0,
@@ -14973,6 +14973,25 @@
       "target_public_id": "SC"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-LS2-5",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science Addresses Questions About the Natural and Material World",
+        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        21,
+        22
+      ],
+      "target_family": "CNS",
+      "target_public_id": "AQAW"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
@@ -15009,25 +15028,6 @@
       ],
       "target_family": "CCC",
       "target_public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-LS2-5",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science Addresses Questions About the Natural and Material World",
-        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        21,
-        22
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
     },
     {
       "confidence": 1.0,
@@ -15190,7 +15190,7 @@
         26
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -15266,40 +15266,40 @@
       "target_public_id": "MOD"
     },
     {
-      "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-LS4-1",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Knowledge is Based on Empirical Evidence",
-        "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        27
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-LS4-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
         "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         27
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "AOC"
+    },
+    {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-LS4-1",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Knowledge is Based on Empirical Evidence",
+        "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        27
+      ],
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -15354,6 +15354,24 @@
       "target_public_id": "PAT"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-LS4-2",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
+        "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        28
+      ],
+      "target_family": "CNS",
+      "target_public_id": "AOC"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "SEP",
       "mapping_method": "normalized-id",
@@ -15370,24 +15388,6 @@
       ],
       "target_family": "SEP",
       "target_public_id": "CEDS"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-LS4-2",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Scientific Knowledge Assumes an Order and Consistency in Natural Systems",
-        "Science assumes that objects and events in natural systems occur in consistent patterns that are understandable through measurement and observation."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        28
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
     },
     {
       "confidence": 1.0,
@@ -15491,7 +15491,7 @@
         31
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -15531,6 +15531,25 @@
       "target_public_id": "LS4.B"
     },
     {
+      "confidence": 0.92,
+      "family_hint": "CCC",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-LS4-5",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science Addresses Questions About the Natural and Material World",
+        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        32,
+        33
+      ],
+      "target_family": "CNS",
+      "target_public_id": "AQAW"
+    },
+    {
       "confidence": 0.98,
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
@@ -15546,7 +15565,7 @@
         33
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -15566,25 +15585,6 @@
       ],
       "target_family": "CCC",
       "target_public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
-      "family_hint": "CCC",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-LS4-5",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science Addresses Questions About the Natural and Material World",
-        "Scientific knowledge can describe the consequences of actions but does not necessarily prescribe the decisions that society takes."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        32,
-        33
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
     },
     {
       "confidence": 0.98,
@@ -15639,7 +15639,7 @@
         35
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -15732,22 +15732,22 @@
       "target_public_id": "SPQ"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS1-2",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         49
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -15938,7 +15938,7 @@
         49
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -15997,24 +15997,6 @@
     },
     {
       "confidence": 0.98,
-      "family_hint": "SEP",
-      "mapping_method": "normalized-id",
-      "pe_id": "MS-PS1-5",
-      "raw_id": "Connections to the Nature of Science",
-      "raw_texts": [
-        "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
-        "Laws are regularities or mathematical descriptions of natural phenomena."
-      ],
-      "resolved_family": "SEP",
-      "source_file": "ngss68.json",
-      "source_pages": [
-        49
-      ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-    },
-    {
-      "confidence": 0.98,
       "family_hint": "CCC",
       "mapping_method": "normalized-id",
       "pe_id": "MS-PS1-5",
@@ -16028,7 +16010,25 @@
         49
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
+    },
+    {
+      "confidence": 0.92,
+      "family_hint": "SEP",
+      "mapping_method": "normalized-text",
+      "pe_id": "MS-PS1-5",
+      "raw_id": "Connections to the Nature of Science",
+      "raw_texts": [
+        "Science Models, Laws, Mechanisms, and Theories Explain Natural Phenomena",
+        "Laws are regularities or mathematical descriptions of natural phenomena."
+      ],
+      "resolved_family": "CNS",
+      "source_file": "ngss68.json",
+      "source_pages": [
+        49
+      ],
+      "target_family": "CNS",
+      "target_public_id": "ENP"
     },
     {
       "confidence": 0.98,
@@ -16099,7 +16099,7 @@
         49
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -16224,22 +16224,22 @@
       "target_public_id": "SYS"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS2-2",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         51
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -16327,7 +16327,7 @@
         51
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 1.0,
@@ -16365,22 +16365,22 @@
       "target_public_id": "ARG"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS2-4",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         51
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 1.0,
@@ -16431,7 +16431,7 @@
         51
       ],
       "target_family": "CCC",
-      "target_public_id": "CAUSE-AND-EFFECT"
+      "target_public_id": "CE"
     },
     {
       "confidence": 0.98,
@@ -16622,7 +16622,7 @@
         53
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -16694,22 +16694,22 @@
       "target_public_id": "PS3.B"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS3-4",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations"
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         53
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -16799,22 +16799,22 @@
       "target_public_id": "ARG"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS3-5",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations"
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         53
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -16831,7 +16831,7 @@
         53
       ],
       "target_family": "CCC",
-      "target_public_id": "ENERGY-AND-MATTER"
+      "target_public_id": "EM"
     },
     {
       "confidence": 1.0,
@@ -16851,22 +16851,22 @@
       "target_public_id": "PS3.B"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "SEP",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS4-1",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Scientific Knowledge is Based on Empirical Evidence",
         "Science knowledge is based upon logical and conceptual connections between evidence and explanations."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         55
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "BEE"
     },
     {
       "confidence": 0.98,
@@ -17011,22 +17011,22 @@
       "target_public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE"
     },
     {
-      "confidence": 0.98,
+      "confidence": 0.92,
       "family_hint": "CCC",
-      "mapping_method": "normalized-id",
+      "mapping_method": "normalized-text",
       "pe_id": "MS-PS4-3",
       "raw_id": "Connections to the Nature of Science",
       "raw_texts": [
         "Science is a Human Endeavor",
         "Advances in technology influence the progress of science and science has influenced advances in technology."
       ],
-      "resolved_family": "SEP",
+      "resolved_family": "CNS",
       "source_file": "ngss68.json",
       "source_pages": [
         55
       ],
-      "target_family": "SEP",
-      "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
+      "target_family": "CNS",
+      "target_public_id": "HE"
     },
     {
       "confidence": 0.98,

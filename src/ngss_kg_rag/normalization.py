@@ -41,6 +41,13 @@ def normalize_lookup(value: str) -> str:
         "influence of engineering, technology, and science, on society and the natural world",
         "influence of science, engineering, and technology on society and the natural world",
     )
+    # Expand abbreviated CCC concept names used in PE tables to their full inventory names.
+    # PE tables often omit the subtitle (e.g. "Cause and Effect" instead of the inventory
+    # title "Cause and Effect: Mechanism and Explanation").
+    if text == "cause and effect":
+        text = "cause and effect: mechanism and explanation"
+    if text == "energy and matter":
+        text = "energy and matter: flows, cycles, and conservation"
     text = re.sub(r"\s+", " ", text).strip()
     return text
 

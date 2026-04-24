@@ -432,58 +432,6 @@
         "confidence": 0.5,
         "family_hint": "CCC",
         "mapping_method": "fallback",
-        "pe_id": "2-PS1-3",
-        "raw_id": "Energy and Matter",
-        "raw_texts": [
-          "Objects may break into smaller pieces and be put together into larger pieces, or change shapes."
-        ],
-        "resolved_family": "CCC",
-        "source_file": "ngssK5.json",
-        "source_pages": [
-          16
-        ],
-        "target_family": "CCC",
-        "target_public_id": "ENERGY-AND-MATTER"
-      },
-      {
-        "confidence": 0.5,
-        "family_hint": "SEP",
-        "mapping_method": "fallback",
-        "pe_id": "K-ESS2-1",
-        "raw_id": "Connections to the Nature of Science",
-        "raw_texts": [
-          "Science Knowledge is Based on Empirical Evidence",
-          "Scientists look for patterns and order when making observations about the world."
-        ],
-        "resolved_family": "SEP",
-        "source_file": "ngssK5.json",
-        "source_pages": [
-          8
-        ],
-        "target_family": "SEP",
-        "target_public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE"
-      },
-      {
-        "confidence": 0.5,
-        "family_hint": "CCC",
-        "mapping_method": "fallback",
-        "pe_id": "K-PS2-1",
-        "raw_id": "Cause and Effect",
-        "raw_texts": [
-          "Simple tests can be designed to gather evidence to support or refute student ideas about causes."
-        ],
-        "resolved_family": "CCC",
-        "source_file": "ngssK5.json",
-        "source_pages": [
-          5
-        ],
-        "target_family": "CCC",
-        "target_public_id": "CAUSE-AND-EFFECT"
-      },
-      {
-        "confidence": 0.5,
-        "family_hint": "CCC",
-        "mapping_method": "fallback",
         "pe_id": "MS-PS1-3",
         "raw_id": "Connections to Engineering, Technology, and Applications of Science",
         "raw_texts": [
@@ -502,27 +450,6 @@
     "synthetic_nodes": [
       {
         "family": "CCC",
-        "node_id": "concept:CCC:CAUSE-AND-EFFECT",
-        "public_id": "CAUSE-AND-EFFECT",
-        "source_file": null,
-        "title": "Cause and Effect"
-      },
-      {
-        "family": "SEP",
-        "node_id": "concept:SEP:CONNECTIONS-TO-THE-NATURE-OF-SCIENCE",
-        "public_id": "CONNECTIONS-TO-THE-NATURE-OF-SCIENCE",
-        "source_file": null,
-        "title": "Connections to the Nature of Science"
-      },
-      {
-        "family": "CCC",
-        "node_id": "concept:CCC:ENERGY-AND-MATTER",
-        "public_id": "ENERGY-AND-MATTER",
-        "source_file": null,
-        "title": "Energy and Matter"
-      },
-      {
-        "family": "CCC",
         "node_id": "concept:CCC:CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE",
         "public_id": "CONNECTIONS-TO-ENGINEERING-TECHNOLOGY-AND-APPLICATIONS-OF-SCIENCE",
         "source_file": null,
@@ -532,12 +459,12 @@
   },
   "manifest": {
     "counts": {
-      "aliases": 1876,
-      "chunks": 339,
-      "concepts": 70,
+      "aliases": 1865,
+      "chunks": 336,
+      "concepts": 67,
       "edges": 6214,
       "grades": 10,
-      "nodes": 4448,
+      "nodes": 4445,
       "performance_expectations": 208,
       "source_files": [
         "ngss3DElements.json",
@@ -588,15 +515,15 @@
       "topic-title"
     ],
     "crosswalk_variants": 85,
-    "low_confidence_mappings": 4,
-    "synthetic_nodes": 4,
+    "low_confidence_mappings": 1,
+    "synthetic_nodes": 1,
     "validation_errors": 0,
     "validation_warnings": 1
   },
   "validations": [
     {
       "code": "node-count",
-      "detail": "4448 canonical nodes exported",
+      "detail": "4445 canonical nodes exported",
       "status": "ok"
     },
     {
@@ -606,7 +533,7 @@
     },
     {
       "code": "chunk-count",
-      "detail": "339 canonical chunks exported",
+      "detail": "336 canonical chunks exported",
       "status": "ok"
     },
     {
