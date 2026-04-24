@@ -93,7 +93,7 @@ const DEFAULT_WORKSPACE = {
   currentStep: "choose",
   seedCategory: "all",
 };
-const TOPBAR_HEIGHT = 48;
+const TOPBAR_HEIGHT = 40;
 
 const panelCollapseHandlers = new WeakMap();
 
