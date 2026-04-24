@@ -1,7 +1,7 @@
 {
   "files": {
     "concepts.json": {
-      "record_count": 70,
+      "record_count": 67,
       "record_type": "dimension_concept"
     },
     "crosswalks.json": {
@@ -23,12 +23,12 @@
   },
   "manifest": {
     "counts": {
-      "aliases": 1876,
-      "chunks": 339,
-      "concepts": 70,
+      "aliases": 1865,
+      "chunks": 336,
+      "concepts": 67,
       "edges": 6214,
       "grades": 10,
-      "nodes": 4448,
+      "nodes": 4445,
       "performance_expectations": 208,
       "source_files": [
         "ngss3DElements.json",
@@ -55,7 +55,7 @@
     "version": 1
   },
   "summary": {
-    "concept_records": 70,
+    "concept_records": 67,
     "crosswalk_records": 150,
     "grade_records": 10,
     "performance_expectation_records": 208,
